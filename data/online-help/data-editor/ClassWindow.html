@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.04 [en] (X11; I; SunOS 5.5.1 sun4m) [Netscape]">
+  <meta name="Author" content="Igor Soloviev">
+  <title>Class Window</title>
+</head>
+<body>
+<div align="right">
+<dt><i><font size="-1">OKS Data Editor</font></i></dt>
+</div>
+<hr width="100%">
+<h1>Class Window</h1>
+The <i>main window</i> of the OKS
+Data Editor allows to display <i>class
+window</i> with list of their instances. To do this double click the
+name of the class from the Classes list or press right mouse button,
+when mouse pointer will be over the OKS Data Editor main window classes
+list and select Show (see <a href="MainWindow.html#ClassesTable">OKS
+Classes Table from main window</a>).<br>
+<br>
+OKS Data Editor Class Window allows to browse list of objects and
+perform several actions with them. To do this select an object and/or
+click right mouse:<br>
+<div align="center"><img
+ style="width: 825px; height: 321px;" alt="Classes Window"
+ src="classes-window.gif" vspace="5"><br>
+</div>
+<h3><a name="ObjectCreation"></a>Object Creation</h3>
+Before creation of a new object it is necessary to decide which data
+file it goes to. A data file can be made active using the <a
+ href="MainWindow.html#DataFilesTable">Data Files Table from main window</a>.
+To create a new object it is enough select <b>[New]</b> menu item. The
+<a href="ObjectCreation.html">object creation prompt dialog</a> that
+will
+appear. Note, the <b>[New]</b> menu item
+remains disabled, if no active file is selected.<br>
+<h3><a name="ShowObject"></a>Show Object Window<br>
+</h3>
+An object can be selected and removed directly from the class table
+(see below). Also, most of the values of it's attributes and
+relationships can be seen directly in the class table. However their
+modification and several other actions with object can only be done
+from the <a href="ObjectWindow.html">Object window</a>. To open the
+window select <b>[Show <i>object_id</i>]</b> from popup menu
+or double click the object row.<br>
+<h3><a name="Find"></a>Find Objects</h3>
+There are two possible ways to find and object:<br>
+<ul>
+  <li>by object unique ID</li>
+  <li>by query (e.g. by values of object attributes and it's relations
+with other objects)<br>
+  </li>
+</ul>
+<h4>Find by Identity</h4>
+To find an object by ID one can to use <b>[Find by ID]</b> function
+from popup menu. In such case put exact UID in
+the prompt dialog. If object with such ID exists in the class, it will
+be selected in the class table.<br>
+<br>
+Also it is possible to use matching UID panel from the bottom of the
+class window. If there are no any symbols in the "Matching UIDs:" text
+filed, then all objects are shown. Otherwise only those objects, which
+IDs match the search mask are shown.<br>
+<br>
+If the "Regular expression" toggle button is selected, to apply the
+mask press appeared <img style="width: 24px; height: 24px;"
+ alt="Search Button" src="search.gif">
+button. Otherwise the modified selection is applied automatically, when
+the mask is modified.<br>
+<h4>Query</h4>
+A query can be constructed and executed in the <a
+ href="QueryWindow.html">query window</a>. Select <b>[Query]</b> item
+from popup menu to
+create new query or select [Load Query] to load an existing query from
+file.<br>
+<h2><a name="Delete"></a>Delete Object</h2>
+To delete an existing object it is necessary to select it and choose <b>[Delete]</b>
+menu item. An object can
+only be deleted, if it is not referenced by other objects and the user
+has write permissions on file containing the object. In case of
+problems the error is printed to the <a href="MessageLogWindow.html">message
+log window</a>.<br>
+<br>
+<hr width="100%"><a href="OksDataEditor.html">Home</a> - <a
+ href="ObjectWindow.html">Next</a>
+- <a href="Index.html#Index">Index</a>
+<br>
+<hr width="100%">
+<address><font size="-1">Modified 10-JUN-2009</font></address>
+<address>
+<font size="-1">Author <a
+ href="http://consult.cern.ch/xwho/people/432778">Igor Soloviev</a></font></address>
+</body>
+</html>

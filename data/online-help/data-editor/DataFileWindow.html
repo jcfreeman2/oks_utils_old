@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.05 [en] (X11; I; SunOS 5.5.1 sun4u) [Netscape]">
+  <meta name="Author" content="Igor Soloviev">
+  <title>Data File Window</title>
+</head>
+<body>
+<div align="right">
+<dt><i><font size="-1">OKS Data Editor</font></i></dt>
+</div>
+<hr width="100%">
+<h1><a name="DataFileWindow"></a>Data File Window</h1>
+The
+data file window allows to browse and to modify list of files included
+by given data file, to access list of objects in the file, to add,
+remove and browse comments stored on the file.<br>
+<div align="center"><img
+ style="width: 569px; height: 723px;" alt="Data File Window"
+ src="data-window.gif" vspace="5"><br>
+</div>
+<h2><a name="Includes"></a>Include Files</h2>
+A data files has to be consistent from <i>included files</i> point of
+view.
+This means, all required schema files and data files with objects
+referenced by objects of given file have to be included.<br>
+<br>
+To modify included files select a file and / or press right mouse
+button
+on the include files list box. A popup menu similar to shown below one
+will appear:<br>
+<div align="center"><img
+ style="width: 552px; height: 131px;" alt="Include Files"
+ src="data-window-includes.gif" vspace="5"><br>
+</div>
+<br>
+The actions of the popup window are listed below:<br>
+<ul>
+  <li><b>[Show]</b> action opens data file window of included file (it
+is
+disabled for schema file).</li>
+  <li><b>[Add From]</b> action allows to add include file from
+TDAQ_DB_PATH,
+TDAQ_DB_REPOSITORY, TDAQ_DB_USER_REPOSITORY and working areas. When a
+file is selected from file selection dialog, the prompt dialog proposes
+to strip it's name. The recommendation is always to strip the file
+name, since inclusion of files with absolute paths makes database
+hardly supportable. When OKS server is used, the inclusion of files
+with absolute filenames is not allowed. If a file is successfully
+included and it was not yet loaded by the editor, it is automatically
+loaded.</li>
+  <li><b>[Remove]</b> action removes selected include.</li>
+  <li><b>[Rename]</b> action allows to change name of include.<br>
+  </li>
+</ul>
+<h2><a name="Objects"></a>Objects</h2>
+It is possible to show, to select and to delete an object using the
+objects table as shown below:<br>
+<div align="center"><img
+ style="width: 553px; height: 171px;" alt="Objects"
+ src="data-window-objects.gif" vspace="5"><br>
+</div>
+Also, it is possible to see only objects belonging to certain classes
+and/or having certain identities. To do this use matching class names
+and object UIDs selection panels below the objects table.<br>
+<h2><a name="Comments"></a>Comments</h2>
+The comments should contain description of file modifications. It is
+always possible to add a comment using [Add Comment] push button
+located above the comments table.<br>
+It is possible to see or to to delete an existing comment using the
+comments table as shown below:
+<div align="center"><img
+ style="width: 553px; height: 123px;" alt="Comments"
+ src="data-window-comments.gif" vspace="5"></div>
+Note, when OKS server is used it is more
+important to put the comments on commit. Any comments stored on file
+after last commit are automatically added in the OKS server commit
+window.
+<br>
+<hr width="100%">
+<a href="OksDataEditor.html">Home</a> - <a href="MessageLogWindow.html">Previous</a>
+- <a href="ClassWindow.html">Next</a> - <a href="Index.html#Index">Index</a>
+<br>
+<hr width="100%">
+<address><font size="-1">Modified 10-JUN-2009</font></address>
+<address>
+<font size="-1">Author <a
+ href="http://consult.cern.ch/xwho/people/432778">Igor Soloviev</a></font></address>
+</body>
+</html>

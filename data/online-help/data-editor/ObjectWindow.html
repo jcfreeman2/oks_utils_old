@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.04 [en] (X11; I; SunOS 5.5.1 sun4m) [Netscape]">
+  <meta name="Author" content="Igor Soloviev">
+  <title>Object Window</title>
+</head>
+<body>
+<div align="right">
+<dt><i><font size="-1">OKS Data Editor</font></i></dt>
+</div>
+<hr width="100%">
+<h1>Object Window</h1>
+To display object window it is necessary select desired object in the
+objects list of <a href="ClassWindow.html">class</a> or <a
+ href="DataFileWindow.html">data file</a> windows, press the right
+mouse button and select Show object menu item, or double click desired
+object in the objects list of class window.<br>
+<br>
+The OKS Data Editor Object Window displays the objects properties
+including object ID, class name, container data file, values of
+attributes and relationships. The single-value attributes are presented
+as text fields or option menus (boolean and enumerations). The
+single-value relationships are presented as text field. The multi-value
+attributes and relationships are presented as lists:<br>
+<div align="center"><img style="width: 581px; height: 678px;"
+ alt="Object Window" src="object.gif" vspace="5"></div>
+The actions and changes of object properties are described below.<br>
+<h2>Actions</h2>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><img
+ style="width: 198px; height: 158px;" alt="Object Icon Popup"
+ src="object-icon-popup.gif" align="top"> <br>
+      </td>
+      <td style="vertical-align: top;">The OKS Data Editor Object
+Window allows the user to select displayed
+object, move the object to another data file, make a copy of the
+object, rename the object, delete the object and change values of the
+object's attributes and relationships. To access actions menu move
+sursor oven icon in the left-up corner of window and press right mouse
+button. Popup menu similar to shown one will appear (depending on
+selection of active file and asscess permissions some menu items can be
+disabled).</td>
+    </tr>
+  </tbody>
+</table>
+<h3><a name="SelectObject"></a>Select Object<br>
+</h3>
+Selection of object means putting it's identity to the data editor
+clipboard.
+If ths identity is the clipboard, it can be used to paste
+this object's reference to a relationship's value.<br>
+<h3><a name="ReferencedBy"></a>Referenced By<br>
+</h3>
+Sometimes it is necessary to know which objects reference given one.
+The selection of <b>[Referenced By]</b>
+popup menu items results appearance of window listing referencing
+objects:<br>
+<div align="center"><img style="width: 377px; height: 305px;"
+ alt="Referenced By Window" src="object-ref-by.gif" vspace="5"></div>
+Double click on an object opens it's data window.
+<h3>Move Object<br>
+</h3>
+To move object from one OKS data file to another, it is necessary to
+select desired data file from OKS Main Window, set this data file
+active, press right mouse button on OKS Object pixmap and choose <b>[Move
+to: <i>datafile</i>]</b>
+menu item. If object currently is stored in data file which is active,
+this menu item will be disabled.<br>
+<h3>Copy object</h3>
+To copy an OKS object press right mouse button on OKS Object pixmap and
+choose <b>[Copy]</b> menu item. When
+popup prompt dialog will appear, input new
+unique object identity (empty string means that the name for new object
+will be chosen automatically).<br>
+When an object is copied, the values of composite exclusive
+relationships are not copied.<br>
+<h3>Rename object</h3>
+To rename object (i.e. to change object identity) press right mouse
+button on OKS Object pixmap and choose Rename menu item. When popup
+prompt dialog will appear, input new unique object identity (it can not
+be empty!). When an object is renamed, more than one data file may be
+affected and marcked as modified.<br>
+<h2>Change value of attributes</h2>
+It is only possible to change attribute value, if the object is stored
+on a file writable by user. Otherwise appropriate item representing the
+value will be disabled.<br>
+<br>
+To change value of single-value attribute it is necessary to press
+the right mouse button, when mouse pointer is over corresponding text
+field, and to select desired action:<br>
+<div align="center"><img style="width: 215px; height: 92px;"
+ alt="Single Value Attribute Popup" src="object-sv-attr-popup.gif"
+ vspace="5"></div>
+The set value dialog allows to set any allowed value. The reset default
+value function sets default value.<br>
+<br>
+If an object has an single-value attribute with enumeration, boolean or
+class type, it is
+displayed as option menu. To modify the attribute select new value from
+option menu:<br>
+<div align="center"><img style="width: 169px; height: 114px;"
+ alt="Set Enumeration Value" src="object-set-sv-enum.gif" vspace="5"></div>
+<br>
+To change value of multi-value attribute it is necessary to press
+the right mouse button, when mouse pointer is over corresponding list
+box, and to select desired action:<br>
+<div align="center"><img style="width: 523px; height: 289px;"
+ alt="Multi-Value Attribute Popup" src="object-mv-attr-popup.gif"
+ vspace="5"></div>
+Modification Actions are listed below:<br>
+<ul>
+  <li>The <b>[Modify Value]</b> allows to change currently selected
+value.</li>
+  <li>The <b>[Add Value]</b> allows to add to the end of the list new
+value.</li>
+  <li>The <b>[Delete Value]</b> allows to remove selected value.</li>
+  <li>The <b>[Move Up Value]</b> moves up selected value one more
+position in the list.</li>
+  <li>The <b>[Move Down Value]</b> moves down selected value one
+position in the list.</li>
+</ul>
+<a name="MultiValueViewActions"></a>The View Actions are listed below:<br>
+<ul>
+  <li>The <b>[Show more (+1 row)]</b> increases height of list for one
+more row.</li>
+  <li>The <b>[Show all rows]</b> increases height of list to show all
+items of the attribute value.</li>
+  <li>The <b>[Show less (-1 row)]</b> decreases height of list by one
+row.</li>
+  <li>The <b>[Show only two rows]</b> sets height of list to two items.</li>
+</ul>
+<h2>Value of relationships</h2>
+It is only possible to change relationship value, if the object is
+stored
+on a file writable by user. Otherwise appropriate item representing the
+value will be disabled.<br>
+<br>
+To change value of single-value relationship it is necessary to press
+the right mouse button, when mouse pointer is over corresponding text
+field, and to select desired action:<br>
+<div align="center"><img style="width: 463px; height: 146px;"
+ alt="Single-Value Realtionship Popup" src="object-sv-rel-popup.gif"
+ vspace="5"></div>
+<ul>
+  <li>To browse referenced object select <b>[Show Object]</b> menu
+item.</li>
+  <li><a name="Clipboard"></a>To set value of relationship the
+referenced object has to be
+previously selected (i.e. put into editor clipboard) in an <a
+ href="#SelectObject">object</a>, <a href="ClassWindow.html#ShowObject">class</a>
+or <a href="DataFileWindow.html#Objects">data file</a> window. If
+there is an
+object in the clipboard, the <b>[Set Object <i>reference</i>]</b>
+allows to link value of relationship with given object.</li>
+  <li>If cardinality of relationship allows (i.e. it is <i>"0..1"</i>),
+the value of relationship
+can be set to NULL using <b>[Clear]</b> menu item.<br>
+  </li>
+</ul>
+To change value of multi-value relationship it is necessary to press
+the right mouse button, when mouse pointer is over corresponding list
+box, and to select desired action:<br>
+<div align="center"><img style="width: 457px; height: 305px;"
+ alt="Multi-Value Relationship Popup" src="object-mv-rel-popup.gif"
+ vspace="5"></div>
+To browse one of referenced objects select it in the list and choose <b>[Show
+Object <i>reference</i>]</b> menu item.<br>
+<br>
+Modification Actions are listed below:<br>
+<ul>
+  <li>To add reference to a new object it has to be previously selected
+(see above for single-value relationship). If there is an object in the
+clipboard, use the <b>[Add Object <i>reference</i>]</b> menu item.</li>
+  <li>To remove object reference from relationship value select the
+object and choose <b>[Remove Object <i>reference</i>]</b>. Note, it
+there is only one object in the relationship, it can be removed only if
+cardinality of relationship allows to do this (i.e. it is <i>"0..N"</i>).</li>
+  <li>The <b>[Move Up <i>reference</i>]</b> moves up selected object
+one more position in the list.</li>
+  <li>The <b>[Move Down <i>reference</i>]</b> moves down selected
+object one position in the list.</li>
+</ul>
+The View Actions are similar to multi-value attribute ones described <a
+ href="#MultiValueViewActions">above</a>.<br>
+<h2>Descriptions</h2>
+The OKS schema contains descriptions of attributes and relationships,
+which should help user to browse and to modify attribtes and
+relationships of an object. To access the documentation select <b>[Show
+Desription]</b> item available in
+most popup menus described above:<br>
+<div align="center"><img style="width: 629px; height: 234px;"
+ alt="Description Dialog" src="object-description.gif" vspace="5"></div>
+Another way to see description is too move mouse pointer above text
+filed box, option menu or list box used for attribute and relationship
+values and keep it still for a second. This results automatic
+appearance of tips box containing description similar to above:<br>
+<div align="center"><img style="width: 399px; height: 151px;"
+ alt="Tips Description" src="object-description-tips.gif" vspace="5"></div>
+Note, the descrition or any other long text is automatically wrapped by
+80 symbols. To change this value&nbsp; use OKS_GUI_TIPS_MAX_WIDTH
+environment variable.<br>
+<br>
+<hr width="100%"><a href="OksDataEditor.html">Home</a> - <a
+ href="QueryWindow.html">Next</a>
+- <a href="Index.html#Index">Index</a>
+<br>
+<hr width="100%">
+<address><font size="-1">Modified 10-JUN-2009</font></address>
+<address>
+<font size="-1">Author <a
+ href="http://consult.cern.ch/xwho/people/432778">Igor Soloviev</a></font></address>
+</body>
+</html>

@@ -1,0 +1,290 @@
+package oks_utils
+
+##########################################################################################
+
+author	Igor.Soloviev@cern.ch
+manager	Igor.Soloviev@cern.ch
+
+##########################################################################################
+
+use OnlinePolicy
+
+##########################################################################################
+
+# the variable OKS_GUI_PATH defines a token directory to search for online configuration
+# files used by the OKS Data Editor
+
+path_remove     OKS_GUI_PATH                		"$(prefix)/share/data"
+path_append     OKS_GUI_PATH                		"$(prefix)/share/data"
+
+
+# the variable OKS_GUI_HELP_URL defines path to the OKS Data Editor online help
+
+set		OKS_GUI_HELP_URL			"file:${TDAQ_INST_PATH}/share/data/oks/online-help/data-editor/"
+
+
+# the variable BOOST_DATE_TIME_TZ_SPEC defines path
+# to the Boost date_time_zonespec.csv file missing in LCG installation
+
+set             BOOST_DATE_TIME_TZ_SPEC                 "${prefix}/share/data/Boost/date_time_zonespec.csv"
+
+##########################################################################################
+
+private
+
+use Boost  * TDAQCExternal
+use CORAL  * TDAQExternal
+
+use oks
+use xmext
+use ers
+use config
+use cmdl
+use system
+use AccessManager
+
+##########################################################################################
+
+# uncomment this for local build in case of headers changes
+macro_prepend  includes                                 '-I../src'
+
+##########################################################################################
+
+set             OKS_DB_ROOT                             $(TDAQ_DB_PATH)
+
+##########################################################################################
+
+macro		LcgLibs "-llcg_RelationalAccess -llcg_CoralBase -lboost_date_time-$(boost_libsuffix)"
+
+library         roks $(lib_opts)                        ../src/rlib/*.cpp
+macro           lib_roks_pp_cppflags                    $(LcgIncludes)
+macro           roks_shlibflags                         " -loks $(LcgLibs)"
+
+library         oks_utils $(lib_opts)                   ../src/lib/*.cpp
+macro           oks_utils_shlibflags                    " -lboost_date_time-$(boost_libsuffix) -lAccessManager -loks "
+
+application     OKS_commit -no_prototypes               ../src/bin/oks_commit.c
+macro           OKS_commitlinkopts                      "-lpam"
+
+application     OKS_commit_exec -no_prototypes          ../src/bin/oks_commit_exec.cpp
+macro           OKS_commit_execlinkopts                 "-loks -lAccessManager -lcmdline -lboost_filesystem-$(boost_libsuffix)"
+
+application     oks_report_equal_objects -no_prototypes ../src/bin/oks_report_equal_objects.cpp
+macro           oks_report_equal_objectslinkopts        "-loks -lboost_program_options-$(boost_libsuffix)"
+
+application     oks_put_schema -no_prototypes           ../src/bin/oks_put_schema.cpp
+macro           oks_put_schemalinkopts                  "-lroks -loks "
+macro           oks_put_schema_dependencies             roks
+
+application     oks_put_data -no_prototypes             ../src/bin/oks_put_data.cpp
+macro           oks_put_datalinkopts                    "-lroks -loks "
+macro           oks_put_data_dependencies               roks
+
+application     oks_get_schema -no_prototypes           ../src/bin/oks_get_schema.cpp
+macro           oks_get_schemalinkopts                  "-lroks -loks "
+macro           oks_get_schema_dependencies             roks
+
+application     oks_get_data -no_prototypes             ../src/bin/oks_get_data.cpp
+macro           oks_get_datalinkopts                    "-lroks -loks "
+macro           oks_get_data_dependencies               roks
+
+application     oks_tag_data -no_prototypes             ../src/bin/oks_tag_data.cpp
+macro           oks_tag_datalinkopts                    "-lroks -loks "
+macro           oks_tag_data_dependencies               roks
+
+application     oks_ls_data -no_prototypes              ../src/bin/oks_ls_data.cpp
+macro           oks_ls_datalinkopts                     "-loks_utils -lroks -loks "
+macro           oks_ls_data_dependencies                "roks oks_utils"
+
+library         xmoks $(lib_opts)                       ../src/xm-lib/*.cpp
+macro           lib_xmoks_pp_cppflags                   '$(X_includes) -I../src'
+macro           xmoks_shlibflags                        " $(X_linkopts) -loks -lxmext "
+
+application     oks_report_bad_classes -no_prototypes   ../src/bin/oks_report_bad_classes.cpp
+macro           oks_report_bad_classeslinkopts          "-loks"
+
+application	oks_merge -no_prototypes		../src/bin/oks_merge.cpp
+macro		oks_mergelinkopts			"-loks"
+
+application	oks_diff_data -no_prototypes		../src/bin/oks_diff_data.cpp
+macro		oks_diff_datalinkopts			"-loks"
+
+application	oks_diff_schema -no_prototypes		../src/bin/oks_diff_schema.cpp
+macro		oks_diff_schemalinkopts			"-loks"
+
+application	oks_tutorial -no_prototypes	 	../src/bin/oks_tutorial.cpp
+macro		oks_tutoriallinkopts			"-loks"
+
+application	oks_data_editor -no_prototypes		../src/xm-gui/data_editor*.cpp		\
+							../src/xm-gui/g_class.cpp		\
+							../src/xm-gui/g_context.cpp		\
+							../src/xm-gui/g_dnd.cpp			\
+							../src/xm-gui/g_ref_tree.cpp		\
+							../src/xm-gui/g_window*.cpp		\
+							../src/xm-gui/g_object*.cpp
+macro		app_oks_data_editor_pp_cppflags		'$(X_includes) -I../src'
+macro           oks_ral_cpp_cppflags                    '-DTDAQ_CMT_RELEASE=\"${CMTRELEASE}\" '
+macro           oks_get_schema_cppflags                 '-DTDAQ_CMT_RELEASE=\"${CMTRELEASE}\" '
+macro           oks_get_data_cppflags                   '-DTDAQ_CMT_RELEASE=\"${CMTRELEASE}\" '
+macro           oks_tag_data_cppflags                   '-DTDAQ_CMT_RELEASE=\"${CMTRELEASE}\" '
+macro		data_editor_main_dlg_cpp_cppflags	'-DOKS_DATA_EDITOR_ONLINE_HELP_DIR=\"$(help_dir)/\" '
+macro		oks_data_editorlinkopts			"-loks_utils -lxmoks -loks $(xmext_libs) -lboost_filesystem-$(boost_libsuffix) $(X_linkopts)"
+macro		oks_data_editor_dependencies		"xmoks oks_utils"
+
+application	oks_schema_editor -no_prototypes	../src/xm-gui/schema_editor*.cpp
+macro		app_oks_schema_editor_pp_cppflags	'$(X_includes) -I../src'
+macro		oks_schema_editorlinkopts		"-lxmoks -loks $(xmext_libs) $(X_linkopts)"
+macro		oks_schema_editor_dependencies		xmoks
+
+##########################################################################################
+
+# TESTS
+
+macro		PATH_TO_SCHEMA				"../tests/DAQ-Configuration.schema.xml"
+
+application	oks_generate_data -no_prototypes	../tests/generate_data.cpp
+macro		generate_data_cpp_cppflags		'-DPATH_TO_SCHEMA=\"$(PATH_TO_SCHEMA)/\" '
+macro		oks_generate_datalinkopts		"-loks"
+
+application	oks_time_tests -no_prototypes		../tests/time_tests.cpp
+macro		time_tests_cpp_cppflags			'-DPATH_TO_SCHEMA=\"$(PATH_TO_SCHEMA)/\" '
+macro		oks_time_testslinkopts			"-loks"
+
+application	oks_test_indexies -no_prototypes	../tests/test_indexies.cpp
+macro		oks_test_indexieslinkopts		"-loks"
+
+##########################################################################################
+
+# EXAMPLES
+
+application	alloc -no_prototypes			../examples/alloc.cpp
+macro           alloclinkopts                           "-l boost_system-$(boost_libsuffix)"
+
+application	attribute -no_prototypes		../examples/attribute.cpp
+macro		attributelinkopts			"-loks"
+
+application	relationship -no_prototypes		../examples/relationship.cpp
+macro		relationshiplinkopts			"-loks"
+
+application	method -no_prototypes			../examples/method.cpp
+macro		methodlinkopts				"-loks"
+
+application	class -no_prototypes			../examples/class.cpp
+macro		classlinkopts				"-loks"
+
+application	data -no_prototypes			../examples/data.cpp
+macro		datalinkopts				"-loks"
+
+application	object -no_prototypes			../examples/object.cpp
+macro		objectlinkopts				"-loks"
+
+application	kernel -no_prototypes			../examples/kernel.cpp
+macro		kernellinkopts				"-loks"
+
+application	comparator -no_prototypes		../examples/comparator.cpp
+macro		comparatorlinkopts			"-loks"
+
+application	r_expression -no_prototypes		../examples/r_expression.cpp
+macro		r_expressionlinkopts			"-loks"
+
+application	not_expression -no_prototypes		../examples/not_expression.cpp
+macro		not_expressionlinkopts			"-loks"
+
+application	and_expression -no_prototypes		../examples/and_expression.cpp
+macro		and_expressionlinkopts			"-loks"
+
+application	or_expression -no_prototypes		../examples/or_expression.cpp
+macro		or_expressionlinkopts			"-loks"
+
+application	query -no_prototypes			../examples/query.cpp
+macro		querylinkopts				"-loks"
+
+application	index -no_prototypes			../examples/index.cpp
+macro		indexlinkopts				"-loks"
+
+application	profiler -no_prototypes			../examples/profiler.cpp
+macro		profilerlinkopts			"-loks"
+
+##########################################################################################
+
+#### install libraries ####
+
+apply_pattern	install_libs                            files="                           \
+                                                                libroks.so              \
+                                                                libxmoks.so             \
+                                                                liboks_utils.so         \
+                                                      "
+
+#### install binaries ####
+
+apply_pattern	install_apps				files="				\
+								oks_schema_editor	\
+								oks_data_editor		\
+								oks_tutorial		\
+								oks_diff_schema		\
+								oks_diff_data		\
+								oks_merge		\
+                                                                oks_report_equal_objects\
+								oks_put_schema		\
+								oks_put_data		\
+								oks_get_schema		\
+								oks_get_data		\
+                                                                oks_tag_data            \
+                                                                oks_ls_data             \
+                                                                OKS_commit              \
+                                                                OKS_commit_exec         \
+							"
+
+
+#### install online help for OKS data editor ####
+
+macro		help_src				"../data/online-help/data-editor"
+macro		help_dest				"../oks/online-help/data-editor"
+macro		help_dir				"$(prefix)/share/data/oks/$(help_dest)"
+
+apply_pattern   install_data name=online_help_html 	src_dir="$(help_src)"		\
+							target_dir="$(help_dest)"	\
+							files="*.html"
+
+apply_pattern   install_data name=online_help_gif 	src_dir="$(help_src)"		\
+							target_dir="$(help_dest)"	\
+							files="*.gif"
+
+
+#### install headres ####
+
+ignore_pattern  inst_headers_auto
+apply_pattern   install_headers name=oks_h              src_dir="../oks"                \
+                                                        target_dir="../oks"             \
+                                                        files="ral.h tz.h access.h"
+
+#### install configuration schema file for oks-data-editor ####
+
+apply_pattern   install_data    name=data_editor_xml	src_dir="../src/xm-gui"         \
+							target_dir="../oks/gui"         \
+							files="*.xml"
+
+apply_pattern   install_data    name=gui_def_params_xml src_dir="../src/xm-lib"         \
+                                                        target_dir="../oks/gui"         \
+                                                        files="*.xml"
+
+#### install oks xsl file ####
+
+apply_pattern   install_data    name=xsl                src_dir="../data/xsl"		\
+							target_dir="../oks/xsl"		\
+							files="*.xsl"
+
+
+#install Boost date_time_zonespec.csv file missing in LCG installation
+
+apply_pattern   install_data name=boost_tz_info         src_dir="../src/rlib"           \
+                                                        target_dir="../Boost"           \
+                                                        files="date_time_zonespec.csv"
+
+##########################################################################################
+
+#### check ####
+
+apply_pattern   check_target name=oks 			file="../cmt/test.sh" args="$(bin)"
+
+##########################################################################################

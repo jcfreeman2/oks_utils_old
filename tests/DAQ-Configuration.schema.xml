@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ASCII"?>
+
+<!-- oks-schema version 2.0 -->
+
+
+<!DOCTYPE oks-schema [
+  <!ELEMENT oks-schema (info, (include)?, (class)+)>
+  <!ELEMENT info EMPTY>
+  <!ATTLIST info
+      name CDATA #REQUIRED
+      type CDATA #REQUIRED
+      num-of-objects CDATA #REQUIRED
+      oks-format CDATA #FIXED "extended"
+      oks-version CDATA #REQUIRED
+      created-by CDATA #REQUIRED
+      created-on CDATA #REQUIRED
+      creation-time CDATA #REQUIRED
+      last-modified-by CDATA #REQUIRED
+      last-modified-on CDATA #REQUIRED
+      last-modification-time CDATA #REQUIRED
+  >
+  <!ELEMENT include (file)+>
+  <!ELEMENT file EMPTY>
+  <!ATTLIST file
+      path CDATA #REQUIRED
+  >
+  <!ELEMENT class (superclass | attribute | relationship | method)*>
+  <!ATTLIST class
+      name ID #REQUIRED
+      description CDATA ""
+      is-abstract (yes|no) "no"
+  >
+  <!ELEMENT superclass EMPTY>
+  <!ATTLIST superclass name CDATA #REQUIRED>
+  <!ELEMENT attribute EMPTY>
+  <!ATTLIST attribute
+      name CDATA #REQUIRED
+      description CDATA ""
+      type (bool|s8|u8|s16|u16|s32|u32|float|double|date|time|string|uid|enum) #REQUIRED
+      range CDATA ""
+      format (dec|hex|oct) "dec"
+      is-multi-value (yes|no) "no"
+      multi-value-implementation (list|vector) "list"
+      init-value CDATA ""
+      is-not-null (yes|no) "no"
+  >
+  <!ELEMENT relationship EMPTY>
+  <!ATTLIST relationship
+      name CDATA #REQUIRED
+      description CDATA ""
+      class-type CDATA #REQUIRED
+      low-cc (zero|one) #REQUIRED
+      high-cc (one|many) #REQUIRED
+      is-composite (yes|no) #REQUIRED
+      is-exclusive (yes|no) #REQUIRED
+      is-dependent (yes|no) #REQUIRED
+      multi-value-implementation (list|vector) "list"
+  >
+  <!ELEMENT method (body+, method-action*)>
+  <!ATTLIST method
+      name CDATA #REQUIRED
+      description CDATA ""
+      condition CDATA #REQUIRED
+  >
+  <!ELEMENT body (#PCDATA)>
+  <!ELEMENT method-action EMPTY>
+  <!ATTLIST method-action
+      return-value CDATA #REQUIRED
+      action CDATA #REQUIRED
+  >
+]>
+
+<oks-schema>
+
+<info name="" type="" num-of-includes="0" num-of-items="7" oks-format="schema" oks-version="2.8.5" created-by="isolov" created-on="lxplus011" creation-time="26/3/03 18:58:54" last-modified-by="isolov" last-modified-on="lxplus011" last-modification-time="26/3/03 18:58:54"/>
+
+ <class name="SW_Resource" description="The Resource class is used to describe shared and exclusive resources used by the processes: the name of the resource, the maximum numbers of copies per partition and per system (i.e. total), and documentation (help URL and comments). The dynamic part of a resource includes the list of processes that allocated this resource.
+An example of a resource could be a run-time license (for example we can start limited number of processes with GUI that use some commercial widget). A resource can describe some hardware resources (for example we can not have two concurrent processes that write on the same type recorder device). The use of resources can be connected with the architecture of the process (for example, we do not want to allow start simultaneously several GUI editors for the same data, if there is no concurrent update of graphical view or the creator of software objects knows that it must be started only once per system or per partition, etc.)." is-abstract="no">
+  <attribute name="Name" description="" type="string" is-multi-value="no" init-value="Unknown" is-not-null="no"/>
+  <attribute name="MaxCopyPerPartition" description="" type="s32" is-multi-value="no" init-value="1" is-not-null="no"/>
+  <attribute name="MaxCopyTotal" description="" type="s32" is-multi-value="no" init-value="1" is-not-null="no"/>
+  <attribute name="HelpLink" description="" type="string" is-multi-value="no" init-value="http://" is-not-null="no"/>
+  <attribute name="Description" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <relationship name="AllocatedBy" description="" class-type="Process" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+ </class>
+
+ <class name="SW_Object" description="This class is used to desribe platform independent part of DAQ software component from logical point of view.
+The platform dependent part is described by &apos;Program&apos; class.
+To start DAQ software component it is necessary to create an instance of &apos;SW_Module&apos; class." is-abstract="no">
+  <attribute name="Name" description="A string is used to desribe unique name of the software object." type="string" is-multi-value="no" init-value="Unknown" is-not-null="no"/>
+  <attribute name="Description" description="A string is used to desribe unique name of the software object." type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="Authors" description="A string is used to desribe unique name of the software object." type="string" is-multi-value="yes" init-value="" is-not-null="no"/>
+  <attribute name="HelpLink" description="A string is used to desribe unique name of the software object." type="string" is-multi-value="no" init-value="http://" is-not-null="no"/>
+  <attribute name="DefaultParameter" description="A string is used to desribe unique name of the software object." type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="DefaultPriority" description="A string is used to desribe unique name of the software object." type="s32" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="DefaultPrivileges" description="A string is used to desribe unique name of the software object." type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <relationship name="NeedsResources" description="" class-type="SW_Resource" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="NeedsEnvironment" description="" class-type="Environment" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="ImplementedBy" description="The software object is implemented by one or more programs." class-type="Program" low-cc="one" high-cc="many" is-composite="yes" is-exclusive="no" is-dependent="yes"/>
+ </class>
+
+ <class name="Computer" description="Describes an abstract computer.
+Has subclasses to describe workstation
+and build-in CPU." is-abstract="no">
+  <attribute name="OsType" type="enum" range="linux,lynx,solaris,hpux,wnt" init-value="linux"/>
+  <attribute name="Name" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <relationship name="Executes" description="" class-type="Process" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="IsIn" description="" class-type="Network" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="HasRecordingDevice" description="" class-type="RecordingDevice" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+ </class>
+
+ <class name="Environment" description="The Environment class is used to describe environment variables and their values. These variables are defined and values are assigned before starting the corresponding process. The SW_Object defines general environment variables (for example, they can describe the name of some configuration database, the name of workstation, where some server is running and so on). The Program defines platform specific environment variables or redefines general environment variables for the actual program. The SW_Configuration defines configuration specific environment (for example the name of the configuartion). The SW_Module defines the environment which is specific for concrete started program." is-abstract="no">
+  <attribute name="Variable" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="Value" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+ </class>
+
+ <class name="Program" description="This class is used to describe platform dependent part of DAQ software component. An instance of this class describes a release of package (a program more exactly). It defines default parameters to start a program (command line, environment, priority, etc.) as well." is-abstract="no">
+  <attribute name="OsType" type="enum" range="linux,lynx,solaris,hpux,wnt" init-value="linux"/>
+  <attribute name="ExecutableFile" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="DefaultParameters" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="DefaultPriority" description="" type="s32" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="DefaultPrivileges" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <relationship name="NeedsEnvironment" description="" class-type="Environment" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="DescribedBy" description="" class-type="SW_Object" low-cc="one" high-cc="one" is-composite="yes" is-exclusive="no" is-dependent="yes"/>
+ </class>
+
+ <class name="Application" description="This class is used to describe DAQ software component from &apos;setup/shutdown&apos; database. If we need to start a new DAQ software component, we have to create an instance of this class and put references to software object (SW_Object class) which we need to start and CPU where we want to start it. The &apos;Initialization&apos; and &apos;Shutdown&apos; dependencies are used in case if we want to start a component synshronosly and we know whict components we must start before." is-abstract="no">
+  <attribute name="Name" description="" type="string" is-multi-value="no" init-value="Unknown Application" is-not-null="no"/>
+  <attribute name="Parameters" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="Priority" description="" type="s32" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="Privileges" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="InitTimeout" description="" type="u32" is-multi-value="no" init-value="5" is-not-null="no"/>
+  <attribute name="CreationType" description="Creation Type attribute enumeration has the following valid tokens:
+1. Default	- all applications
+2. DAQ_Setup	- started by Supervisor at setup
+3. DAQ_Shutdown	- started by Supervisor at shutdown
+4. SOR		- started by ??? at Start Of Run
+5. EOR		- started by ??? at End Of Run
+6. Supervised	- must be monitored by DAQ supervisor and at least 2-5 must be set" type="Enumeration, Default, DAQ_Setup, DAQ_Shutdown, SOR, EOR, Supervised" is-multi-value="yes" init-value="Default" is-not-null="no"/>
+  <relationship name="SWObject" description="" class-type="SW_Object" low-cc="one" high-cc="one" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="RunsOn" description="" class-type="Computer" low-cc="one" high-cc="one" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="InitializationDependsFrom" description="" class-type="Application" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="NeedsEnvironment" description="" class-type="Environment" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="ExecutedAs" description="" class-type="Process" low-cc="zero" high-cc="one" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="ShutdownDependsFrom" description="" class-type="Application" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="HasParameters" description="" class-type="Parameter" low-cc="zero" high-cc="many" is-composite="yes" is-exclusive="no" is-dependent="yes"/>
+ </class>
+
+ <class name="Process" description="The Process class is used to describe a dynamic physical part of a software object: logical name of the process (for example, TRD_DetController and TILES_DetController are different processes, but they are started from the same program), process id, date and time of start, real process priority and privileges. An instance of Process class has a reference to Program from which it has been started and a reference to CPU where it is executed. An instance of Process class has a list of allocated resources, and it has a reference to the partition (configuration), where it was running." is-abstract="no">
+  <attribute name="Handle" description="" type="s32" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="Type" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="PID" description="" type="s32" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="TimeOfStart" description="" type="time" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="Priority" description="" type="s32" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="Privileges" description="" type="string" is-multi-value="no" init-value="" is-not-null="no"/>
+  <attribute name="Name" description="" type="string" is-multi-value="no" init-value="Unknown Process" is-not-null="no"/>
+  <relationship name="RunsOn" description="" class-type="Computer" low-cc="one" high-cc="one" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="HoldsResource" description="" class-type="SW_Resource" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="StartedFrom" description="" class-type="Program" low-cc="one" high-cc="one" is-composite="no" is-exclusive="no" is-dependent="no"/>
+  <relationship name="RanBy" description="" class-type="Application" low-cc="one" high-cc="one" is-composite="no" is-exclusive="no" is-dependent="no"/>
+ </class>
+
+</oks-schema>

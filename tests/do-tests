@@ -1,0 +1,117 @@
+#! /bin/sh
+
+######################################################################
+
+#
+# This script is used to perform configuration database benchmark
+# on top of OKS
+#
+# It creates 10 different configurations which simulate all
+# possible databases in range from single Read-Out Crate (200 objects)
+# up to final ATLAS DAQ system (100,000 objects)
+#
+#
+# Author: Igor SOLOVIEV <Igor.Soloviev@cern.ch>
+#
+
+######################################################################
+
+echo "Start configuration database tests for OKS"
+
+######################################################################
+
+#
+# Default number of objects for an OKS class will be 1024
+#
+
+OKS_CLASS_SIZE="1024"
+export OKS_CLASS_SIZE
+
+######################################################################
+
+schema_file="$SRT_INST/share/confdb/shared/schemes/DAQ-Configuration.schema.xml"
+
+for f in					\
+ ../tests/DAQ-Configuration.schema.xml		\
+ ../../tests/DAQ-Configuration.schema.xml	\
+ ./tests/DAQ-Configuration.schema.xml		\
+ ./DAQ-Configuration.schema.xml
+do
+  if test -f $f
+  then
+    schema_file=$f
+    break
+  fi
+done
+
+echo "will use \'$schema_file\'"
+
+######################################################################
+
+trap 'echo "clean temporal files"; rm -f /tmp/junk.$$ ${datafile} ${datafile}.ext ${xfile} ${xfile}.ext junk.data; exit 1' 1 2 15
+
+for data in				\
+	"   200	   1024	   512	  256"	\
+	"   400	   1024	   512	  256"	\
+	"   800	   2048	  1024	  256"	\
+	"  1600	   4096	  2048	  256"	\
+	"  3200	   8192	  4096	  512"	\
+	"  6400	  16384	  8192	  512"	\
+	" 12800   32768	 16384	 1024"	\
+	" 25600	  65536	 32768	 2048"	\
+	" 51200	 131072	 65536	 4096"	\
+        "102400  262144 131072   8192"  \
+        "204800  524288 262144  16384"  \
+        "409600 1048576 524288  32768"
+do
+  echo $data > /tmp/junk.$$
+  read f kernel_size big_class_size small_class_size < /tmp/junk.$$
+  rm -f /tmp/junk.$$
+
+  echo "==============================================================================="
+  echo "========================== Set OKS kernel parameters =========================="
+  OKS_KERNEL_SIZE="$kernel_size"
+  export OKS_KERNEL_SIZE
+  echo "===== Set OKS kernel size to $OKS_KERNEL_SIZE"
+
+  OKS_Process_CLASS_SIZE="$big_class_size"
+  export OKS_Process_CLASS_SIZE
+  OKS_Application_CLASS_SIZE="$big_class_size"
+  export OKS_Application_CLASS_SIZE
+  OKS_Environment_CLASS_SIZE="$big_class_size"
+  export OKS_Environment_CLASS_SIZE
+  echo "===== Set number of Process, Application & Environment class instances to $big_class_size"
+
+  OKS_CLASS_SIZE="$small_class_size"
+  export OKS_CLASS_SIZE
+  echo "===== Set number of other class instances to $small_class_size"
+
+  case `uname -s` in
+    CYGWIN32*)
+	datafile="./confdb.data.$f.xml"
+        xfile="..oks-lock-confdb.data.$f.xml"
+	;;
+    *)
+	datafile="/tmp/confdb.data.$f.xml"
+        xfile="/tmp/.oks-lock-confdb.data.$f.xml"
+	;;
+  esac
+
+  rm -f "${datafile}" "${datafile}.ext" "${xfile}" "${xfile}.ext"
+  echo "==============================================================================="
+  echo "Generate datafile $datafile"
+  ../$CMTCONFIG/oks_generate_data	\
+	-n $f				\
+	-schema "$schema_file"		\
+	-data "$datafile"
+
+  echo "-------------------------------------------------------------------------------"
+  ls -la "$datafile"
+  echo "-------------------------------------------------------------------------------"
+  ../$CMTCONFIG/oks_time_tests 		\
+	-schema "$schema_file"		\
+	-data "$datafile"
+  echo "*****************************************************************************"
+  echo ""
+  rm -f "${datafile}" "${datafile}.ext" "${xfile}" "${xfile}.ext" "junk.data"
+done

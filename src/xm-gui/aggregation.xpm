@@ -1,0 +1,23 @@
+/* XPM */
+static const char * aggregation_xpm[] = {
+"27 17 3 1",
+"  c lightgrey s Background",
+". c darkgrey s BottomShadow",
+"X c white s TopShadow",
+"                           ",
+"             .             ",
+"           .....           ",
+"         ...XXX...         ",
+"       ...XX   XX...       ",
+"     ...XX       XX...     ",
+"   ...XX           XX...   ",
+" ...XX               XX... ",
+"..XX                   XX..",
+"X...                   ...X",
+" XX...               ...XX ",
+"   XX...           ...XX   ",
+"     XX...       ...XX     ",
+"       XX...   ...XX       ",
+"         XX.....XX         ",
+"           XX.XX           ",
+"             X             "};

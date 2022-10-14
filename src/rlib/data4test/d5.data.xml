@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="ASCII"?>
+
+<!-- oks-data version 2.2 -->
+
+
+<!DOCTYPE oks-data [
+  <!ELEMENT oks-data (info, (include)?, (comments)?, (obj)+)>
+  <!ELEMENT info EMPTY>
+  <!ATTLIST info
+      name CDATA #IMPLIED
+      type CDATA #IMPLIED
+      num-of-items CDATA #REQUIRED
+      oks-format CDATA #FIXED "data"
+      oks-version CDATA #REQUIRED
+      created-by CDATA #IMPLIED
+      created-on CDATA #IMPLIED
+      creation-time CDATA #IMPLIED
+      last-modified-by CDATA #IMPLIED
+      last-modified-on CDATA #IMPLIED
+      last-modification-time CDATA #IMPLIED
+  >
+  <!ELEMENT include (file)*>
+  <!ELEMENT file EMPTY>
+  <!ATTLIST file
+      path CDATA #REQUIRED
+  >
+  <!ELEMENT comments (comment)*>
+  <!ELEMENT comment EMPTY>
+  <!ATTLIST comment
+      creation-time CDATA #REQUIRED
+      created-by CDATA #REQUIRED
+      created-on CDATA #REQUIRED
+      author CDATA #REQUIRED
+      text CDATA #REQUIRED
+  >
+  <!ELEMENT obj (attr | rel)*>
+  <!ATTLIST obj
+      class CDATA #REQUIRED
+      id CDATA #REQUIRED
+  >
+  <!ELEMENT attr (data)*>
+  <!ATTLIST attr
+      name CDATA #REQUIRED
+      type (bool|s8|u8|s16|u16|s32|u32|s64|u64|float|double|date|time|string|uid|enum|class|-) "-"
+      val CDATA ""
+  >
+  <!ELEMENT data EMPTY>
+  <!ATTLIST data
+      val CDATA #REQUIRED
+  >
+  <!ELEMENT rel (ref)*>
+  <!ATTLIST rel
+      name CDATA #REQUIRED
+      class CDATA ""
+      id CDATA ""
+  >
+  <!ELEMENT ref EMPTY>
+  <!ATTLIST ref
+      class CDATA #REQUIRED
+      id CDATA #REQUIRED
+  >
+]>
+
+<oks-data>
+
+<info name="" type="" num-of-items="8" oks-format="data" oks-version="oks-08-03-02-14-g572fc09 built &quot;Mar 11 2021&quot;" created-by="isolov" created-on="lxplus071.cern.ch" creation-time="20070314T140238" last-modified-by="isolov" last-modified-on="pcatd79.cern.ch" last-modification-time="20210311T193150"/>
+
+<include>
+ <file path="s1.schema.xml"/>
+</include>
+
+
+<obj class="Department" id="EP">
+ <attr name="Name" type="string" val="EP Department"/>
+ <rel name="Staff">
+  <ref class="Employee" id="maria"/>
+ </rel>
+</obj>
+
+<obj class="Department" id="IT">
+ <attr name="Name" type="string" val="IT Department"/>
+ <rel name="Staff">
+  <ref class="Employee" id="alexander"/>
+  <ref class="Employee" id="michel"/>
+ </rel>
+</obj>
+
+<obj class="Employee" id="alexander">
+ <attr name="Name" type="string" val="Alexander"/>
+ <attr name="Birthday" type="date" val="19720512"/>
+ <attr name="Family Situation" type="enum" val="Single"/>
+ <attr name="Salary" type="u32" val="3540"/>
+ <rel name="Works at" class="Department" id="IT"/>
+</obj>
+
+<obj class="Employee" id="maria">
+ <attr name="Name" type="string" val="Maria"/>
+ <attr name="Birthday" type="date" val="19510818"/>
+ <attr name="Family Situation" type="enum" val="Widow(er)"/>
+ <attr name="Salary" type="u32" val="4020"/>
+ <rel name="Works at" class="Department" id="EP"/>
+</obj>
+
+<obj class="Employee" id="michel">
+ <attr name="Name" type="string" val="Michel"/>
+ <attr name="Birthday" type="date" val="19630128"/>
+ <attr name="Family Situation" type="enum" val="Married"/>
+ <attr name="Salary" type="u32" val="4950"/>
+ <rel name="Works at" class="Department" id="IT"/>
+</obj>
+
+<obj class="Person" id="alex">
+ <attr name="Name" type="string" val="Alex"/>
+ <attr name="Birthday" type="date" val="19960101"/>
+ <attr name="Family Situation" type="enum" val="Single"/>
+</obj>
+
+<obj class="Person" id="baby">
+ <attr name="Name" type="string" val="Julia"/>
+ <attr name="Birthday" type="date" val="20000525"/>
+ <attr name="Family Situation" type="enum" val="Single"/>
+</obj>
+
+<obj class="Person" id="peter">
+ <attr name="Name" type="string" val="Peter"/>
+ <attr name="Birthday" type="date" val="19600201"/>
+ <attr name="Family Situation" type="enum" val="Married"/>
+</obj>
+
+</oks-data>

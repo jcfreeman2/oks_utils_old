@@ -1,0 +1,87 @@
+#! /bin/sh
+
+echo "Make OKS results"
+echo ""
+
+echo "1" > /tmp/cmd.$$
+echo "d" >> /tmp/cmd.$$
+echo "w" >> /tmp/cmd.$$
+echo "q" >> /tmp/cmd.$$
+
+t=''
+
+for f in				\
+"load_schema"				\
+"load_data"				\
+"find_class"				\
+"get_object"				\
+"get_attribute_value_by_name"		\
+"get_relationship_value_by_name"	\
+"set_attribute_value_by_name"		\
+"set_relationship_value_by_name"	\
+"get_attribute_value_by_oid"		\
+"get_relationship_value_by_oid"		\
+"set_attribute_value_by_oid"		\
+"set_relationship_value_by_oid"		\
+"object_constructor"			\
+"object_destructor"			\
+"iterate-classes"			\
+"iterate-all-objects"			\
+"iterate-objects-of-class"		\
+"query1 "				\
+"query1-with-index"			\
+"query10 "				\
+"query10-with-index"			\
+"query50 "				\
+"query50-with-index"			\
+"kernel_dump"				\
+"save_data"				\
+"close_data"				\
+"close_schema"
+do
+  echo "Processing $f ..."
+  echo " test: \c"
+
+  file="./data/$f.dat"
+  file=`echo $file | sed 's/ //g'`
+  rm -f $file
+
+  title=`echo $f | sed 's/ //g'`
+
+  echo "Title=\"$title\"" > $file
+  echo "Xaxis=\"Number of Objects\"" >> $file
+  echo "Yaxis=\"Response Time (ms)\"" >> $file
+
+  for host in $*
+  do
+    linename=`basename $host`
+    echo "$linename \c"
+
+    grep "$f" $host | sed "s/$f//" | sed 's/ms//' | sed 's/ //g' > /tmp/junk.$$
+
+    read t < /tmp/junk.$$
+    ed /tmp/junk.$$ < /tmp/cmd.$$ > /dev/null
+
+    if test -n "$t"
+    then
+      echo "" >> $file
+      echo "Line=\"$linename\"" >> $file
+      echo "200\t$t" >> $file
+    fi
+
+    for size in "400" "800" "1600" "3200" "6400" "12800" "25600" "51200" "100000"
+    do
+      read t < /tmp/junk.$$
+      ed /tmp/junk.$$ < /tmp/cmd.$$ > /dev/null
+      if test -n "$t"
+      then
+        echo "$size\t$t" >> $file
+      fi
+    done
+
+  done
+
+  echo ""
+done
+
+rm -f /tmp/junk.$$ /tmp/cmd.$$

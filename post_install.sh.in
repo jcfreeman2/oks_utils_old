@@ -1,0 +1,6 @@
+if test "${USER}" = "swinstaller" -a $(hostname -f) = "vm-tdq-sw-01.cern.ch"; then
+         echo "Applying root sticky bit to OKS_commit"
+         echo RPM_INSTALL_PREFIX=${RPM_INSTALL_PREFIX}
+         sudo chown root ${RPM_INSTALL_PREFIX}/tdaq/@TDAQ_PROJECT_NAME@/installed/@BINARY_TAG@/bin/OKS_commit
+         sudo chmod u+s  ${RPM_INSTALL_PREFIX}/tdaq/@TDAQ_PROJECT_NAME@/installed/@BINARY_TAG@/bin/OKS_commit
+fi 

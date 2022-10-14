@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.04 [en] (X11; I; SunOS 5.5.1 sun4m) [Netscape]">
+  <meta name="Author" content="Igor Soloviev">
+  <title>Query Window</title>
+</head>
+<body>
+<div align="right">
+<dt><i><font size="-1">OKS Data Editor</font></i></dt>
+</div>
+<hr width="100%">
+<h1>Graphical Window</h1>
+<font color="red"><b>==== under construction ====</b></font><br>
+<br>
+<br>
+The OKS Data Editor provides a way for graphical representation of
+relations between objects. A group of objects have to be described in
+special configuration file explaining to the OKS data editor objects of
+which classes have to be displayed, what graphical icons and cursors to
+use, which relationships and attributes have to be suppressed, which
+relationships have dependencies, what to show on top, etc. For example,
+below there is typical Partition view accessible via <b>Partition</b>
+menu of
+<b>Edit</b> menu bar of the <a href="MainWindow.html#MenuBar">main
+window</a>:<br>
+<div align="center"><img style="width: 583px; height: 830px;"
+ alt="Graphical Window" src="g_win.gif" vspace="5"></div>
+The popup window appearing in result of right mouse button click in an
+object-free area (see above picture) allows to:<br>
+<ul>
+  <li><a href="#CreateObject">create</a> new object (allowed for given
+type of graphical window)</li>
+  <li><a href="#SelectTopLevelObjects">select </a>objects shown on top
+level</li>
+  <li><a href="#WindowProperties">define</a> user graphical preferences</li>
+  <li><a href="#PrintWindow">print</a> contents of window</li>
+  <li>sort objects and refresh<br>
+  </li>
+</ul>
+Otherwise user can browse and update an object as described in <a
+ href="#BrowseAndUpdateObject">second next section</a>.<br>
+<h2><br>
+</h2>
+<h2><a name="SelectTopLevelObjects"></a>Top Level Objects</h2>
+<br>
+<h2><a name="BrowseAndUpdateObject"></a>Browse and Update Objects</h2>
+Each object can be shown in two states:<br>
+<ul>
+  <li>Icon State (compact, no visible attributes)</li>
+  <li>Table State (extended, the attributes are visible and can be
+modified)</li>
+</ul>
+The switch between above states and many other actions on object are
+available from popup menu available on right mouse button click when
+object is in icon state, or left mouse click on object's table system
+button:<br>
+<div align="center">
+<table cellpadding="2" cellspacing="5">
+  <caption align="bottom"><small>Icon State Popup - left. Table State
+Popup - right.</small><br>
+  </caption> <tbody>
+    <tr>
+      <td><img style="width: 285px; height: 329px;" alt="Icon Popup"
+ src="g_win_icon_popup.gif"></td>
+      <td><img style="width: 284px; height: 267px;" alt="Table Popup"
+ src="g_win_table_popup.gif"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+The popup menu allows:<br>
+<ul>
+  <li><b>[Hide]</b> - Remove object from given graphical window. To
+restore
+object close and open window again or modify <b>[Show on Top]</b>
+window configuration.</li>
+  <li><b>[Maximize]</b> - Switch from icon to table state. <b>[Minimize]</b>
+- Switch
+from table to icon state.</li>
+  <li><b>[Hide Relationships]</b> - Do not show object relationships
+(if
+shown). <b>[Show Relationships]</b> - Show object relationships (if
+not shown).</li>
+  <li><b>[Copy Reference]</b> - Put reference on given object into
+editor
+clipboard (is the same as <a href="ObjectWindow.html#Clipboard">select</a>
+operation)</li>
+  <li><b>[Link with reference]</b> - Link current object with another
+selected
+object (if there is a one in editor clipboard).</li>
+  <li><b>[Referenced By]</b> - Show objects referencing given one in
+this
+window (to get all references use <a
+ href="ObjectWindow.html#ReferencedBy">referenced by</a> function of
+object window).<br>
+  </li>
+  <li><b>[Contained in]</b> - Show name of file containing given object.</li>
+  <li><b>[Copy]</b> - Copy given object.</li>
+  <li><b>[Rename]</b> - Change unique identity of given object.</li>
+  <li><b>[Modify]</b> - Is the same as [Maximize].</li>
+  <li><b>[Create Child &gt;]</b> - Create new object and link it with
+given
+one.</li>
+  <li><b>[Delete]</b> - Delete given object.<br>
+  </li>
+</ul>
+<h3>Object table</h3>
+When an object is shown as table, one can to browse the attributes,
+class name and unique identity, e.g.:<br>
+<div align="center"><img style="width: 424px; height: 218px;"
+ alt="Table" src="g_win_table.gif" vspace="5"><br>
+</div>
+To edit an attribute click left mouse button on it's value. A textfield
+box will appear allowing to change the value. If the value cannot be
+changed (e.g. object's file is read-only or locked by someone else),
+the value will be shown as disabled.<br>
+<div align="center">
+<table cellpadding="2" cellspacing="5">
+  <caption align="bottom"><small>Edit an attribute in text field -
+left. Modification is not allowed, the text field box is disabled -
+right.</small><br>
+  </caption> <tbody>
+    <tr>
+      <td><img style="width: 424px; height: 218px;" alt="Edit Attribute"
+ src="g_win_table_edit_attr.gif"><br>
+      </td>
+      <td><img style="width: 255px; height: 149px;"
+ alt="Disabled Text Field" src="g_win_table_edit_dsbl.gif"></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+When modification of a value is finished, to update object press [Tab]
+key or slect any other attrubute.<br>
+<br>
+If an attribute has enumeration type, instead of text filed box popup
+menu with allowed values appears (to change value select a new value
+from the popup). In the attrubute's type is unsigned integer, then it's
+value can be
+edited in decimal or hexadecimal format (click right mouse button and
+select desired format):<br>
+<div align="center">
+<table cellpadding="2" cellspacing="5">
+  <caption align="bottom"><small>Edit enumeration value - left. Select
+numeric format to edit unsigned integer value - right.</small><br>
+  </caption> <tbody>
+    <tr>
+      <td><img style="width: 353px; height: 260px;"
+ alt="Edit Enumeration Value" src="g_win_table_edit_enum.gif" vspace="5"></td>
+      <td><img style="width: 255px; height: 148px;"
+ alt="Edit unsigned integer value" src="g_win_table_edit_int_format.gif"
+ vspace="5"></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br>
+<h3>Object relationships</h3>
+<br>
+<br>
+<h3><a name="ContainedIn"></a>Object File</h3>
+To see which file contains an object select <b>[Contained in]</b> from
+object's popup menu, e.g.:<br>
+<div align="center"><img style="width: 820px; height: 156px;"
+ alt="Contained In" src="g_win_contained_in.gif" vspace="5"><br>
+</div>
+<h3><a name="ReferencedBy"></a>References on Object</h3>
+To see which objects referencing given object in this window select
+<b>[Referenced By]</b> from object's popup menu. The references are
+starting
+from the window top-level objects and show relationship names and
+intermediate objects, e.g.:<br>
+<div align="center"><img style="width: 1167px; height: 552px;"
+ alt="Refernced By" src="g_win_ref_by.gif" vspace="5"><br>
+</div>
+<br>
+Note, to get list of all references from loaded database use <a
+ href="ObjectWindow.html#ReferencedBy">referenced by</a> function of
+object window.<br>
+<h2><a name="CreateObject"></a>Create New Object</h2>
+Select database file for new object and create<br>
+<h3>Relationship Objects</h3>
+Create new object and link with existing one<br>
+<br>
+<h2><a name="DeleteObject"></a>Delete Object</h2>
+<h2><a name="WindowProperties"></a>Window Properties</h2>
+The properties window allows to set fond, various distances, layouts,
+etc.:<br>
+<div align="center"><img style="width: 471px; height: 617px;"
+ alt="Parameters" src="g_win_params.gif" vspace="5"><br>
+</div>
+<h2><a name="PrintWindow"></a>Print Window</h2>
+The print window allows to print current window into encapsulated
+PostScript file, to save as <i>mif</i> file for future import to Adobe
+Frame
+Maker, or to send to printer.<br>
+<div align="center"><img style="width: 610px; height: 616px;"
+ alt="Print Window" src="g_win_print.gif" vspace="5"><br>
+</div>
+<h2>Create Configuration for New View</h2>
+How to create OKS config file for data editor and add to the editor
+configuration.<br>
+<br>
+<hr width="100%"><a href="OksDataEditor.html">Home</a> - <a
+ href="MainWindow.html">Next</a>
+- <a href="Index.html#Index">Index</a>
+<hr width="100%">
+<address><font size="-1">Modified 12-JUN-2009</font></address>
+<address>
+<font size="-1">Author <a
+ href="http://consult.cern.ch/xwho/people/432778">Igor Soloviev</a></font></address>
+</body>
+</html>

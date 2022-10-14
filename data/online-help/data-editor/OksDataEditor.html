@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.04 [en] (X11; I; SunOS 5.5.1 sun4m) [Netscape]">
+  <meta name="Author" content="Igor Soloviev">
+  <title>OKS Data Editor</title>
+</head>
+<body>
+<div align="right">
+<dt><i><font size="-1">OKS Data Editor</font></i></dt>
+</div>
+<hr width="100%">
+<h1>OKS Data Editor</h1>
+<i>
+The OKS Data Editor provides an interactive Motif based GUI to
+graphically manipulate
+objects stored in the OKS database files. An OKS object can be
+inspected and
+edited visually.<br>
+The editor supports the following OKS data file changes:
+<ul>
+  <li>create a new data file</li>
+  <li>modify the contents of a data file
+    <ul>
+      <li>add / remove / rename included files</li>
+      <li>add / remove comment</li>
+      <li>create new object, copy an object, remove an object, modify
+an
+object (modify value of an attribute and modify value of an
+relationship)</li>
+      <li>move an object across different data files</li>
+    </ul>
+  </li>
+  <ul>
+  </ul>
+  <li>save data file </li>
+</ul>
+The editor supports OKS server including:</i><br>
+<i>
+<ul>
+  <li>create user repository area</li>
+  <li>checkout, update and release files in the user area</li>
+  <li>commit modified files on the OKS server</li>
+</ul>
+The editor presents
+instances of a class in matrix form. A matrix may be sorted by a class'
+attribute or relationship. For complicated search of instances there is
+graphical query constructor.
+</i>
+<hr width="100%">
+<h2>Contents</h2>
+<a href="#CommandLineOptions">1. Command Line Options</a><br>
+<a href="#EditorOptions">&nbsp; 1.1 The Editor Options</a><br>
+<a href="#EnvironmentVariables">2. Environment Variables</a>
+<br>
+<a href="#Appearance">3. Appearance</a>
+<br>
+<a href="#TheGUI_Customization">&nbsp;&nbsp;&nbsp; 3.1. The GUI
+Customization</a>
+<br>
+<br>
+<hr width="100%">
+<h2><a name="CommandLineOptions"></a>1. Command Line Options</h2>
+<b>oks_data_editor</b> [&lt;<i>X Toolkit options&gt;</i>] [editor
+options] [<i>&lt;schema_files&gt;</i>]
+[<i>&lt;data_files&gt;</i>]<br>
+where:
+<ul>
+  <li> <i>X Toolkit options </i>are standard X Toolkit command line
+options (e.g. <tt><font size="-1">-display hostname:0.0 -fg black -bg
+white</font></tt>)</li>
+  <li>editor options allow to run without graphical messages window, to
+set configurable graphical window parameters, etc. (see below) <br>
+  </li>
+  <li> <i>schema_files</i> are names of the OKS schema files (usually
+are
+not needed, since data files are including the required schema files)<br>
+  </li>
+  <li> <i>data_files </i>are names of the OKS data files</li>
+</ul>
+<hr align="left" width="50"><img src="note.gif" alt="NOTE" nosave=""
+ align="bottom" height="18" hspace="5" width="25"><b>Note:</b>
+the order of options is important and X Toolkit command line arguments
+(if used) must be placed before any other options, and the schema /
+data files must be put last.<br>
+<hr align="left" width="50">
+<br>
+An example of command:<br>
+<br>
+<div style="margin-left: 40px;"><big><tt><font size="-1"><big>oks_data_editor
+-bg grey -fg white --no-message-window
+combined/partitions/ATLAS.data.xml<br>
+</big></font></tt></big></div>
+<h3><a name="EditorOptions"></a>1.1. The Editor Options</h3>
+<table style="text-align: left;" border="0" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <th colspan="2" rowspan="1" align="center" bgcolor="#ccccff"
+ valign="top">Options</th>
+      <th colspan="1" rowspan="2" align="center" bgcolor="#ccccff"
+ valign="top">Description of options</th>
+    </tr>
+    <tr>
+      <th align="center" bgcolor="#ccccff" valign="top">Short format</th>
+      <th align="center" bgcolor="#ccccff" valign="top">Long format<br>
+      </th>
+    </tr>
+    <tr>
+      <td bgcolor="#eeeeee">&nbsp;</td>
+      <td bgcolor="#eeeeee">--no-message-window</td>
+      <td bgcolor="#eeeeee">do not create graphical window for messages
+and errors and do not redirect output (same as OKS_GUI_NO_MSG_WINDOW
+environment variable)</td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">-V</td>
+      <td bgcolor="#ffffff">--oks-verbose</td>
+      <td bgcolor="#ffffff">run OKS in verbose mode to display OKS
+kernel messages</td>
+    </tr>
+    <tr>
+      <td bgcolor="#eeeeee"> -v</td>
+      <td bgcolor="#eeeeee">--verbose</td>
+      <td bgcolor="#eeeeee">display editor debug messages</td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">-a</td>
+      <td bgcolor="#ffffff">--allow-duplicated-objects-via-inheritance</td>
+      <td bgcolor="#ffffff">do not stop if there are duplicated object
+via inheritance hierarchy (usually used for debug purposes)<br>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#eeeeee">-I</td>
+      <td bgcolor="#eeeeee">--init-dirs <i>init-directories</i></td>
+      <td bgcolor="#eeeeee">colon-separated list of directories
+containing initialization files for user graphical windows (same as
+OKS_GUI_PATH environment variable)<br>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">-D</td>
+      <td bgcolor="#ffffff">--init-data-files <i>data-files</i></td>
+      <td bgcolor="#ffffff">colon-separated list of initialisation data
+files with absolute or relative to init-dirs names (same as
+OKS_GUI_INIT_DATA environment variable)<br>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#eeeeee">-P</td>
+      <td bgcolor="#eeeeee">--pixmap-dirs <i>pixmap-dirs</i></td>
+      <td bgcolor="#eeeeee">colon-separated list of pixmap directories
+with absolute or relative to init-dirs names (same as OKS_GUI_XPM_DIRS
+environment variable)</td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">-B</td>
+      <td bgcolor="#ffffff">--bitmap-dirs <i>bitmap-dirs</i></td>
+      <td bgcolor="#ffffff">colon-separated list of bitmap directories
+with absolute or relative to init-dirs names (same as OKS_GUI_XBM_DIRS
+environment variable)</td>
+    </tr>
+    <tr>
+      <td bgcolor="#eeeeee">-W</td>
+      <td bgcolor="#eeeeee">--icon_width <i>width</i></td>
+      <td bgcolor="#eeeeee"><u>graphical window parameter</u>: width of
+the icon</td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">-H</td>
+      <td bgcolor="#ffffff">--ch-obj-dx <i>width</i></td>
+      <td bgcolor="#ffffff"><u>graphical window parameter</u>: children
+objects horisontal spacing</td>
+    </tr>
+    <tr>
+      <td bgcolor="#eeeeee">-R</td>
+      <td bgcolor="#eeeeee">--ch-obj-dy <i>width</i></td>
+      <td bgcolor="#eeeeee"><u>graphical window parameter</u>: children
+objects vertical spacing</td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">-A</td>
+      <td bgcolor="#ffffff">--ch-obj-max-width <i>width</i></td>
+      <td bgcolor="#ffffff"><u>graphical window parameter</u>: maximum
+width of child object (wrap relationship branch)</td>
+    </tr>
+    <tr>
+      <td bgcolor="#eeeeee">-O</td>
+      <td bgcolor="#eeeeee">--font-dx <i>width</i></td>
+      <td bgcolor="#eeeeee"><u>graphical window parameter</u>: text
+horisontal spacing</td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">-E</td>
+      <td bgcolor="#ffffff">--font-dy <i>width</i></td>
+      <td bgcolor="#ffffff"><u>graphical window parameter</u>: text
+vertical spacing</td>
+    </tr>
+    <tr>
+      <td bgcolor="#eeeeee">-Z</td>
+      <td bgcolor="#eeeeee">--obj-dx <i>width</i></td>
+      <td bgcolor="#eeeeee"><u>graphical window parameter</u>:
+graphical objects horisontal spacing</td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">-T</td>
+      <td bgcolor="#ffffff">--obj-dy <i>width</i></td>
+      <td bgcolor="#ffffff"><u>graphical window parameter</u>:
+graphical objects vertical spacing</td>
+    </tr>
+    <tr>
+      <td bgcolor="#eeeeee">-N</td>
+      <td bgcolor="#eeeeee">--da-x-margin <i>width</i></td>
+      <td bgcolor="#eeeeee"><u>graphical window parameter</u>: drawing
+area top/bottom margins</td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff"> -C</td>
+      <td bgcolor="#ffffff">--da-y-margin <i>width</i></td>
+      <td bgcolor="#ffffff"><u>graphical window parameter</u>: drawing
+area left/right margins</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<p>
+</p>
+<hr width="100%">
+<h2><a name="EnvironmentVariables"></a>2. Environment Variables</h2>
+Set environment variable <b><font size="-1">OKS_DATA_EDITOR_NO_MSG_WINDOW</font></b>
+to any value to avoid appearance of Messages Window. By default all
+load
+time and run time errors and information messages generated by OKS
+kernel
+and Data Editor are listed in Message Window. Setting of the
+environment
+variable mentioned above will redirect them to the terminal window from
+which Data Editor was started.
+<p>Another environment variables can be useful as well:
+</p>
+<ul>
+  <li><b><tt>OKS_KERNEL_VERBOSE</tt></b> sets OKS kernel to <b><i>verbose
+mode</i></b> (running in verbose mode, OKS kernel will report all OKS
+kernel calls)</li>
+  <li><b><tt>OKS_KERNEL_SILENCE</tt></b> sets OKS kernel to <b><i>silence
+mode</i></b> (running in silence mode, OKS kernel will report error
+messages only)</li>
+  <li><b><tt>OKS_KERNEL_PROFILING</tt></b> sets OKS kernel to <b><i>profiling
+mode</i></b> (running in profiling mode, OKS kernel will retrieve
+information about how many times each kernel method is executed and the
+total and average time used; it is useful without Message Window only)</li>
+  <li><b><tt>OKS_GUI_HELP_URL</tt></b> specifies base URL for online
+help (e.g. 'file://local/share/online-help/data-editor/')</li>
+  <li><b><tt>OKS_GUI_PATH</tt></b> same as '--init-dirs' command line
+parameter</li>
+  <li><b><tt>OKS_GUI_INIT_DATA</tt></b> same as '--init-data-files'
+command line parameter</li>
+  <li><b><tt>OKS_GUI_XPM_DIRS</tt></b>same as '--pixmap-dirs' command
+line parameter</li>
+  <li><b><tt>OKS_GUI_XBM_DIRS</tt></b> same as '--bitmap-dirs' command
+line parameter</li>
+  <li><b><tt>TDAQ_INST_PATH</tt></b> default place for configuration
+files for online sw release (obsolete way, use OKS_GUI_PATH)</li>
+  <li><b><tt>OKS_GUI_PATH</tt></b> = '${TDAQ_INST_PATH}/share/data'</li>
+</ul>
+<hr width="100%">
+<h2><a name="Appearance"></a>3. Appearance</h2>
+The OKS Data Editor Main Window appears after successful start of the
+application.
+Depending on the environment variable discussed above, the Message
+Log
+Window may appear as well. The Main Window stays on screen during an
+operation
+with Data Editor. Other windows are created dynamically when required
+and is deleted when is not needed. The different types of windows are
+listed below:
+<ul>
+  <li> <a href="MainWindow.html">Main window</a></li>
+  <li> <a href="MessageLogWindow.html">Message Log window</a></li>
+  <li> <a href="DataFileWindow.html">Data File window</a></li>
+  <li> <a href="ClassWindow.html">Class window</a></li>
+  <li> <a href="ObjectWindow.html">Object window</a></li>
+  <li> <a href="QueryWindow.html">Query window</a></li>
+  <li><a href="GraphicalWindow.html">Graphical Window</a></li>
+  <li><a href="ReplaceWindow.html">Search/Replace Window</a><br>
+  </li>
+</ul>
+<h3>
+<a name="TheGUI_Customization"></a>3.1. The GUI Customization</h3>
+<h4>
+X Toolkit resource names</h4>
+The applications understand all of the core X Toolkit resource names
+and
+classes as well as:
+<ul>
+  <li> <b>menu_bar</b> - specifies application menu bar widget,</li>
+  <li> <b>popup</b> - specifies popup menu,</li>
+  <li> <b>simple</b> - specifies general label widget;</li>
+  <li> <b>header</b> - specifies label widget, used as a header.</li>
+</ul>
+<h4>
+X resource database file</h4>
+It is possible to customize appearance of the editor via setting user
+preferences about color, fonts, and so on. Then the <i>OksEditor</i>
+class should
+be used as base prefix. For example, put into <i>~/.Xdefaults</i> file
+the
+following fonts and
+colours preferences of first editor version:
+<p><tt><b>OksEditor</b>*Background:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LightGrey<br>
+<b>OksEditor</b>*menu_bar*Background:&nbsp;&nbsp;&nbsp;&nbsp;CornFlowerBlue<br>
+<b>OksEditor</b>*popup*Background:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grey<br>
+<b>OksEditor</b>*menu_bar*Foreground:&nbsp;&nbsp;&nbsp;&nbsp;White<br>
+<b>OksEditor</b>*XmList*Background:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grey<br>
+<b>OksEditor</b>*XmTextField*Background:&nbsp;Grey<br>
+<b>OksEditor</b>*DrawingArea*Background:&nbsp;Grey<br>
+<b>OksEditor</b>*XmText*Background:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grey<br>
+<b>OksEditor</b>*FontList:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-adobe-helvetica-bold-r-normal--14-140-75-75-p-82-iso8859-1<br>
+<b>OksEditor</b>*popup*FontList:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-adobe-helvetica-bold-r-normal--14-140-75-75-p-82-iso8859-1<br>
+<b>OksEditor</b>*simple*FontList:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-adobe-helvetica-medium-o-normal--14-140-75-75-p-78-iso8859-1<br>
+<b>OksEditor</b>*header*FontList:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-adobe-helvetica-bold-o-normal--14-140-75-75-p-82-iso8859-1<br>
+</tt></p>
+Then run:<br>
+<ul>
+  <tt>xrdb -load ~/.Xdefaults</tt><br>
+</ul>
+restart the editor and see result :-)<br>
+<hr width="100%"><a href="Index.html#Index">Index</a>
+<br>
+<hr width="100%">
+<address><font size="-1">Modified 09-JUN-2009<br>
+</font></address>
+<address>
+<font size="-1">Author Igor Soloviev</font></address>
+</body>
+</html>

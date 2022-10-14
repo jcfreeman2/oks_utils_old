@@ -1,0 +1,93 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; SunOS 5.6 sun4u) [Netscape]">
+   <meta name="Author" content="Igor Soloviev">
+   <title>Main Window</title>
+</head>
+<body>
+
+<div ALIGN=right>
+<dt>
+<i><font size=-1>OKS Data Editor</font></i></dt></div>
+
+<hr WIDTH="100%">
+<h1>
+Find/Replace Dialog Window</h1>
+The <b>Find</b> dialog window is used to find objects containg given value
+of attributes or relationships.
+<br>The <b>Replace</b> dialog window is used to find such objects and substitute
+the found values by some other value.
+<center><img SRC="replace-dlg.gif" ALT="[replace dialog]" HSPACE=5 VSPACE=5 height=296 width=444></center>
+
+<p>The "<i>Replace</i>" group of radio buttons defines type of search:
+<UL>
+ <LI>by value of an attribute;</LI>
+ <LI>by value of a relationship.</LI>
+</UL>
+If "<i>search by attribute value</i>" is choosen, the search is performed
+by all objects that contain attributes with some user-specified type, e.g.
+search all objects with attribute of type "<i>signed short integer</i>"
+equal to <i>123</i>, or search all attribute of type "<i>string</i>" containg
+"<i>@cern.ch</i>".
+<br>If "<i>search by relationship value</i>" is choosen, the search is
+performed by all objects that contain relationships pointing to some object,
+e.g. search all objects that have a reference to the object X of class
+A.
+<p>If "<b>Find</b>" button is pressed, the found objects with details are
+printed to the standard output (message log window), e.g.:
+<br><b><tt><font size=-1>Find '"@cern.ch"' (case sensitive match)</font></tt></b>
+<br><tt><font size=-1>&nbsp;- match attribute 'Authors' of object 'SW_Object@mrs-server'</font></tt>
+<br><tt><font size=-1>&nbsp;&nbsp;&nbsp; * found (case sensitive match)
+substring "@cern.ch" in '&lt;Doris.Burckhart@cern.ch>'</font></tt>
+<br><tt><font size=-1>&nbsp;- match attribute 'Authors' of object 'SW_Object@mrs-server'</font></tt>
+<br><tt><font size=-1>&nbsp;&nbsp;&nbsp; * found (case sensitive match)
+substring "@cern.ch" in '&lt;Mihai.Caprini@cern.ch>'</font></tt>
+<br><tt><font size=-1>&nbsp;- match attribute 'Authors' of object 'SW_Object@rc-intera-controller'</font></tt>
+<br><tt><font size=-1>&nbsp;&nbsp;&nbsp; * found (case sensitive match)
+substring "@cern.ch" in '&lt;Robert.Jones@cern.ch>'</font></tt>
+<br><tt><font size=-1>&nbsp;- match attribute 'Authors' of object 'SW_Object@confdb-print-hosts'</font></tt>
+<br><tt><font size=-1>&nbsp;&nbsp;&nbsp; * found (case sensitive match)
+substring "@cern.ch" in '&lt;Igor.Soloviev@cern.ch>'</font></tt>
+<br><tt><font size=-1>&nbsp;- match attribute 'Authors' of object 'SW_Object@ipc-server'</font></tt>
+<br><tt><font size=-1>&nbsp;&nbsp;&nbsp; * found (case sensitive match)
+substring "@cern.ch" in '&lt;Serguei.Kolos@cern.ch>'</font></tt>
+<p>If "<b>Replace</b>"button is pressed, the modified objects with details
+are printed to the standard output (message log window), e.g.:
+<br><b><tt><font size=-1>Replace '[Workstation@sunatdaq01.cern.ch]' to
+'[Workstation@sunatdaq02]'</font></tt></b>
+<br><tt><font size=-1>&nbsp;- update relatioship 'RunsOn' of object 'RunControlApplication@ROC1Ctrl'</font></tt>
+<br><tt><font size=-1>&nbsp;- update relatioship 'RunsOn' of object 'RunControlApplication@ROC2Ctrl'</font></tt>
+<br><tt><font size=-1>&nbsp;- update relatioship 'RunsOn' of object 'RunControlApplication@RootCtrl'</font></tt>
+<br><tt><font size=-1>&nbsp;- update relatioship 'RunsOn' of object 'RunControlApplication@SFC1Ctrl'</font></tt>
+<br><tt><font size=-1>&nbsp;- update relatioship 'RunsOn' of object 'RunControlApplication@SFC2Ctrl'</font></tt>
+<br><tt><font size=-1>&nbsp;- update relatioship 'RunsOn' of object 'RunControlApplication@DFMCtrl'</font></tt>
+<p>Before search, the input values typed by the user, are converted to
+given attribute or object types and input fields are updated accordanly.
+The find is not started if object specified by the user does not exist.
+The replace is not started, if after conversion the '<i>from value</i>'
+is equal to the '<i>to value</i>'.
+<p>If search by string value is performed, it is possible to define two additional parameters of the search:
+<ul>
+ <li>case sensitive search;</li>
+ <li>matching to whole string.</li>
+</ul>
+If replace by string attribute value is used and matching to whole string
+is not required, each found matching token is replaced, e.g. case insensitive
+replacement of string "<i>abcxyXyxYXYcba</i>" by "<i>XY</i>" to "<i>YX</i>"
+produces new string "<i>abcYXYXYXYXcba</i>".
+<br>
+<hr WIDTH="100%">
+<br><a href="OksDataEditor.html">Home</a> - <a href="QueryWindow.html">Previous</a>
+- <a href="Index.html#Index">Index</a>
+<br>
+<hr WIDTH="100%">
+<address>
+<font size=-1>Modified 8 November 1999</font></address>
+
+<address>
+<font size=-1>Author Igor Soloviev</font></address>
+
+</body>
+</html>

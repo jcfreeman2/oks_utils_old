@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.04 [en] (X11; I; SunOS 5.5.1 sun4m) [Netscape]">
+  <meta name="Author" content="Igor Soloviev">
+  <title>Query Window</title>
+</head>
+<body>
+<div align="right">
+<dt><i><font size="-1">OKS Data Editor</font></i></dt>
+</div>
+<hr width="100%">
+<h1>Query Window</h1>
+The
+OKS Data Editor provides database query builder. Created query can be
+used by user application via OKS and config APIs. An OKS query can be
+edited visually, saved in a file, loaded from file and executed. The
+query window consists of two main parts: the graphical query
+constructor and the result table:<br>
+<div align="center"><img style="width: 429px; height: 780px;"
+ alt="Query Window" src="query.gif" vspace="5">
+</div>
+<h2><a name="BuildingQuery"></a>Building query</h2>
+To begin building a query, select desired class from the <a
+ href="MainWindow.html#ClassesTable">main window</a> or from the <a
+ href="ClassWindow.html">class window</a>, press right mouse
+button and select <b>[Query]</b> item from popup menu.
+OKS Data Editor will bring up query window with empty query form.<br>
+<br>
+It is necessary to decide, if the query scope is limited by objects of
+the selected class, or also include objects of derived classes. This
+can be changed using toggle button <b>[Search in subclasses]</b>: if
+it is
+selected, the query will be performed over class and all subclasses,
+otherwise scope will be one class only.<br>
+<br>
+Then press
+right mouse button in empty query form:<br>
+<div align="center"><img style="width: 313px; height: 294px;"
+ alt="Empty Form" src="query-empty.gif" align="middle" vspace="5"></div>
+<br>
+The attribute expression allows to run query selecting objects by
+attribute or UID value. The relationship expressions allow to apply
+attribute expression on referenced objects. The <i>"Not"</i>, <i>"And"</i>
+and <i>"Or"</i>
+expressions allow to build query using arbitrary number of attribute
+and relationship expressions.<br>
+<h3><a name="AttributeExpression"></a>Attribute Expression</h3>
+The attribute expression query form is simplest query form
+and it describes search by value of single attribute, for example
+<i>"search all objects with initialisation timeout greater 20"</i>:<br>
+<div align="center"><img style="width: 241px; height: 153px;"
+ alt="Attribute Form" src="query-attr.gif" vspace="5"><br>
+</div>
+This form
+consists of the following items:<br>
+<ul>
+  <li>Selection radio-group <i>"Attribute Value"</i> vs. <i>"Object
+ID"</i>. If <i>"Attribute Value"</i> is selected, the value of
+attribute is
+compared.
+Else, the object UID is compared.<br>
+  </li>
+  <li>Attribute
+option menu allows to select an attribute defined in class (disabled,
+if the <i>"Object ID"</i> is selected above).<br>
+  </li>
+  <li>Value text field allows to put any desired value of attribute
+that will
+be used during the search;</li>
+  <li>Comparator allows to define a function that will be used by query
+and predefined functions are:
+    <ul>
+      <li><tt>"="&nbsp;</tt> - equal,</li>
+      <li><tt>"!="</tt> - not equal,</li>
+      <li><tt>"~="</tt> - like (use regular expression),</li>
+      <li><tt>"&lt;="</tt> - less or equal,</li>
+      <li><tt>"&gt;="</tt> - great or equal,</li>
+      <li><tt>"&lt;"&nbsp;</tt> - less,</li>
+      <li><tt>"&gt;"&nbsp;</tt> - great.</li>
+    </ul>
+  </li>
+</ul>
+The attribute name can be changed at any moment. If the attribute type
+of new selected attribute is different from previous one, the value can
+be converted to default of selected attribute type.<br>
+<h3><a name="RelationshipExpression"></a>Relationship Expression</h3>
+The relationship expression query form describes search
+through relationship attribute using nested query form, for example <i>"search
+all segments which have infrastructure applications defining
+infrastructure environment variables with names ended by IS_SERVER"</i>:<br>
+<div align="center"><img style="width: 335px; height: 255px;"
+ alt="Relationship Form" src="query-rel.gif" vspace="5"><br>
+</div>
+<br>
+This form
+consists of the following items:<br>
+<ul>
+  <li>Relationship option menu allows to select a relationship defined
+in class.</li>
+  <li><i>"Some Objects Match Query"</i> vs. <i>"All Objects Match
+Query"</i> toggle button defines either
+an object referenced by relationship matches query from nested query
+form
+or at least one object referenced by relationship matches the query.</li>
+  <li>Nested Query
+Form allows to build nested query expression (e.g. attribute or even
+nested relationship expression). Press right mouse button
+to see popup menu and use the same rules to build query as for top
+level query form. Note, once the nested form is inserted, it is not
+possible to change the relationship name (the option menu becomes
+disabled).</li>
+</ul>
+<div align="center"><img style="width: 247px; height: 202px;"
+ alt="Relationship Form Popup" src="query-rel-popup.gif" vspace="5"><br>
+</div>
+<h3>Logical Expressions</h3>
+Logical Query Expression Form can be used with any type
+of query form to build complex query expression. There are three types
+of logical query expressions:<br>
+<ul>
+  <li><i>"Not"</i> query expression</li>
+  <li><i>"And"</i> query expression</li>
+  <li><i>"Or"</i> query expression</li>
+</ul>
+<br>
+The <i>"Not"</i> query expression form can be concatenated
+with any another single query expression form. The <i>"And"</i> query
+expression form and <i>"Or"</i> query expression form can be used with
+any two
+or more query expression forms.<br>
+<br>
+It is possible to build multi-level tree
+structure that consists of logical query expression forms. The leaves
+of that structure must be either <a href="#AttributeExpression">attribute</a>
+or <a href="#RelationshipExpression">relationship</a> query expression
+form. An incomplete tree and popup menu is shown below:<br>
+<div align="center"><img style="width: 391px; height: 414px;"
+ alt="Incomplete Logical Tree and Popup Menu"
+ src="query-logical-tree.gif" vspace="5"><br>
+</div>
+<h2><a name="ExecutingQuery"></a>Executing Query</h2>
+To execute a complete OKS query it is necessary either to create it
+(see <a href="#BuildingQuery">Building Query</a>) or to load already
+existing one (see <a href="#LoadingQuery">Loading
+Query</a>). Press right mouse button on any free space of the query
+form and
+select <b>[Execute Query]</b> item from popup menu:<br>
+<div align="center"><img style="width: 420px; height: 174px;"
+ alt="Prepare Execution" src="query-exe.gif" vspace="5">
+</div>
+<br>
+The result of
+query will
+appear in the query result table:<br>
+<div align="center"><img style="width: 430px; height: 325px;"
+ alt="Result" src="query-result.gif" vspace="5"><br>
+</div>
+<h2><a name="SavingQuery"></a>Saving Query</h2>
+To save a complete query to file press right mouse button on any free
+space of Query Form and select Save Query item from popup menu. This
+will bring up dialog with prompt for query file name. Enter desired
+filename and press OK button, e.g.:<br>
+<div align="center"><img style="width: 316px; height: 188px;" alt="Save"
+ src="query-save.gif" vspace="5">
+</div>
+<br>
+Note, incomplete query can not be saved.<br>
+<br>
+The format of the query file is simple (it looks like a statement of
+LISP language) and can be edited manually by any text editor.<br>
+<br>
+An OKS query does not strongly depend from class type. If two classes
+have an attribute with the same name, possibly a query can be applied
+to both classes.<br>
+<h2><a name="LoadingQuery"></a>Loading Query</h2>
+To load a query, select query related class from <a
+ href="MainWindow.html#ClassesTable">main window</a> or <a
+ href="ClassWindow.html">class
+window</a>, press right mouse button and
+select [Load Query] item from popup menu. The OKS Data
+Editor will bring up Open OKS Query window. Choose query file name and
+the Query window with stored query will appear.
+<hr width="100%"><a href="OksDataEditor.html">Home</a> - <a
+ href="file:///home/isolov/working/online/oks/data/online-help/data-editor/QueryWindow.html">Next</a>
+- <a href="Index.html#Index">Index</a>
+<hr width="100%">
+<address><font size="-1">Modified 11-JUN-2009</font></address>
+<address>
+<font size="-1">Author <a
+ href="http://consult.cern.ch/xwho/people/432778">Igor Soloviev</a></font></address>
+</body>
+</html>

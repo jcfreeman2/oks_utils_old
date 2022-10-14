@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.04 [en] (X11; I; SunOS 5.5.1 sun4m) [Netscape]">
+  <meta name="Author" content="Igor Soloviev">
+  <title>Main Window</title>
+</head>
+<body>
+<div align="right">
+<dt><i><font size="-1">OKS Data Editor</font></i></dt>
+</div>
+<hr width="100%">
+<h1>Main Window<br>
+</h1>
+The Main Window contains the following items:
+<ul>
+  <li> <a href="#MenuBar">Menu Bar</a></li>
+  <li> <a href="#SchemaFilesList">List of loaded OKS Schema Files</a></li>
+  <li> <a href="#DataFilesTable">Table of loaded OKS Data Files</a></li>
+  <li> <a href="#ClassesTable">Table of OKS Classes</a></li>
+</ul>
+<h2>
+<a name="MenuBar"></a>Menu Bar</h2>
+The Menu Bar allows to perform actions listed below. In some cases the
+actions are available via combination of key accelerators, e.g. to exit
+editor press simultaneously &lt;Ctrl&gt; and Q keys.<br>
+<ul>
+  <li> <b><u>F</u>ile</b>
+    <ul>
+      <li> <b>Save All Updated &lt;Ctrl+S&gt;</b> - Save all updated
+files. The comments dialog will appear. If non-empty comment will be
+provided, it will be added to all saving files.</li>
+      <li> <b>Create User Repository</b> - Create [temporal] user
+repository to work with OKS server (only available, if
+TDAQ_DB_REPOSITORY process environment is defined).</li>
+      <li> <b>Release User Repository &lt;Ctrl+D&gt;</b> - When OKS
+server is used, remove all files from user repository area (uncommitted
+changes can be lost!).</li>
+      <li> <b>Update User Repository &lt;Ctrl+U&gt;</b> - When OKS
+server is used, update from server all files in user repository area
+(uncommitted changes can be lost!).</li>
+      <li> <b>Commit User Repository &lt;Ctrl+C&gt;</b> - When OKS
+server is used, commit all modified files in user repository area.</li>
+      <li> <b>Check consistency &lt;Ctrl+Y&gt;</b> - Apply consistency
+checks to loaded data files; in case of any reported problem it has to
+be
+fixed, if problematic file is going to be saved.</li>
+      <li><b><u>E</u>xit &lt;Ctrl+Q&gt;</b> - Exit the OKS Data Editor.
+The 'Exit Confirmation Dialog' will appear. Choose [Exit] to exit or
+[Cancel] to continue work with Data Editor. You will be asked on
+unsaved and uncommitted files.</li>
+    </ul>
+  </li>
+  <li><b>Edit</b>
+    <ul>
+      <li><b>Find &lt;Ctrl+F&gt;</b> -
+bring up <a href="ReplaceWindow.html">Find</a> dialog allowing to find
+objects by value of an attribute or a relationship.<br>
+      </li>
+      <li><b>Replace &lt;Ctrl+R&gt;</b>
+- bring up <a href="ReplaceWindow.html">Replace</a> dialog allowing to
+find and replace values of an attributes or a relationships.<br>
+        <hr align="left" width="100"><small><i>various <a
+ href="GraphicalWindow.html">graphical
+windows </a>customized by users, e.g.:</i></small></li>
+      <li><b>Software Repository</b></li>
+      <li><b>Data Quolity Tree</b></li>
+      <li><b>Tests Repository</b></li>
+      <li><b>Control Tree</b></li>
+      <li><b>Partition</b></li>
+      <li><b>Data Quality Algorithms</b></li>
+      <li><b>Hardware</b></li>
+    </ul>
+  </li>
+  <li><b>Options</b>
+    <ul>
+      <li><b>Silence Mode</b> - Select toggle button to switch OKS
+kernel in <i>silence</i> mode.</li>
+      <li><b>Verbose Mode</b> - Select toggle button to switch OKS
+kernel in <i>verbose</i> mode.</li>
+      <li><b>Profiling Mode</b> - Select toggle button to switch OKS
+kernel in <i>profiling</i> mode.</li>
+      <li><b>Check externally modified
+files</b> - Select toggle button to periodically check if loaded
+file was modified by an external process. In such case ask user, if the
+file has to be saved or reloaded. </li>
+      <li><b>Set period of check</b> - Set period of check for above
+option. </li>
+      <li><b>Recovery mode for modified files</b> - Select toggle
+button to periodically save modified
+files. In case of a problem the recovery file with latest update can be
+used found. </li>
+      <li><b>Set backup period</b> -
+Set period of save for above option.</li>
+      <li><b>Ask comment on file save</b>
+- Select toggle button to enable / disable dialog box asking for
+comments of file saving. </li>
+      <li><b>Restore position on restart</b>
+- Save positions of the main and message windows, when exit application
+and restore them, when the editor is restarted. The options are saved
+on exit, if this toggle is on.  </li>
+      <li><b>Save Options</b> - Save given options on <i>~/.oks-data-editor-rc.xml</i>
+file and use them, when the editor will be used next time. </li>
+    </ul>
+  </li>
+  <li><b>Windows</b>
+    <ul>
+      <li><b>Help &lt;Ctrl+H&gt;</b> - select to popup Help Window</li>
+      <li><b>Message Log &lt;Ctrl+M&gt;</b> - select to popup <a
+ href="MessageLogWindow.html">Message Log Window</a><br>
+        <hr align="left" width="100"></li>
+      <li><b>Window 1</b> - Select to popup first child window (if it
+is opened)</li>
+      <li><b>Window 2</b> - Select to popup second child window (if it
+is opened)<br>
+        <b>...</b></li>
+      <li><b>Window N</b> - Select to popup n-th child window (if it is
+opened)</li>
+    </ul>
+  </li>
+  <li><b>Help</b>
+    <ul>
+      <li>General</li>
+      <li>Index<br>
+        <hr align="left" width="100"></li>
+      <li>Main Window</li>
+      <li>Message Log</li>
+      <li>Data File Window</li>
+      <li>Class Window</li>
+      <li>Object Window</li>
+      <li>Query Window</li>
+      <li>Graphical Window</li>
+      <li>Find/replace Window<br>
+        <hr align="left" width="100"></li>
+      <li><b>About...</b> - Select to popup About OKS Data Editor
+Dialog Box. It contains copyrights info and OKS version.<br>
+      </li>
+    </ul>
+  </li>
+</ul>
+&nbsp;
+<h2><a name="SchemaFilesList"></a>OKS Schema Files List</h2>
+The OKS Schema Files List shows loaded schema files and allows several
+operations
+with them. It is possible to load schema file, to close selected or all
+schema files. To display a list of the available actions with
+OKS schema files, it is necessary press right mouse button, when mouse
+pointer will be over the scheme list, as it shown on the figure below:<br>
+<div align="center"><img style="width: 627px; height: 120px;"
+ alt="Schema Files" src="schema-files.gif" hspace="5" vspace="5"></div>
+<p>The popup menu allows the following actions:
+</p>
+<ul>
+  <li>item <b>[Open...]</b> allows open already existing OKS schema
+file</li>
+  <li>item <b>[Close <i>filename</i>]</b> closes selected OKS schema
+file&nbsp; (if there is no selected schema file, it will be disabled)</li>
+  <li>item <b>[Close All]</b> closes all loaded schema files (if there
+are no loaded schema files, it will be disabled)</li>
+</ul>
+Note, that the close operation results close of data files using
+classes from closing schema file.<br>
+<h2>
+<a name="DataFilesTable"></a>OKS Data Files Table</h2>
+The OKS Data Files Table selectively shows loaded data files and allows
+several operations with them:<br>
+<div align="center"><img style="width: 790px; height: 231px;"
+ alt="Data Files" src="data-files.gif" hspace="5" vspace="5"></div>
+<h3>Popup Menu<br>
+</h3>
+To display a list of the available
+actions with OKS data files, it is necessary to press right mouse
+button,
+when mouse pointer will be over the data files table. The popup menu
+allows the following actions (some of them can be disabled, if the file
+is not selected or the OKS server is not used):<br>
+<ul>
+  <li><b>[New...]</b> - Create new OKS data file</li>
+  <li><b>[Open...]</b> - Open already existing OKS data file</li>
+  <li><b>[Close <i>filename</i>]</b> - Close selected OKS data file</li>
+  <li><b>[Close All]</b> - Closes all loaded data files</li>
+  <li><b>[Save <i>filename</i>]</b> - Save selected OKS data file in
+extended format</li>
+  <li><b>[Force Save <i>filename</i>]</b> - Save selected OKS data
+file in extended format ignoring consistency rules (non-recommended!)</li>
+  <li><b>[Save As... <i>filename</i>]</b> - Save selected OKS data
+file with other name. It is also possible to choose between <i>extended</i>
+(default) and <i>normal</i> (compact) data file formats.</li>
+  <li><b>[Checkout <i>filename</i>]</b> - Checkout file from OKS
+server for local modifications in user repository area.</li>
+  <li><b>[Update <i>filename</i>]</b> - Update file located in user
+repository area from OKS server (uncommitted changes can be lost!) and
+reload it.</li>
+  <li><b>[Commit <i>filename</i>]</b> - Commit modifications made in
+user repository area on the OKS server.</li>
+  <li><b>[Release <i>filename</i>]</b> - Remove file located in user
+repository area (uncommitted changes can be lost!) and reload it from
+OKS server repository.</li>
+  <li><b>[Save All]</b> - Save all loaded data files, for which teher
+are write permissions.</li>
+  <li><b>[Set Active <i>filename</i>]</b> or [<b>Unset Active <i>filename</i></b>]
+- Set or unset selected data file. The active file means: any created
+object will be placed in this data file; it is possible move an
+existing object to this data file.</li>
+  <li><b>[Details <i>filename</i>]</b> - Display the <a
+ href="DataFileWindow.html">Data File Window</a> that will show the
+table of objects, loaded from selected data file.</li>
+</ul>
+The double-click on data files table brings <a
+ href="DataFileWindow.html">Data
+File Window</a>.
+<p>The table shows the following information about data file:
+</p>
+<ul>
+  <li><b>File</b> - Fully qualified filename.</li>
+  <li><b>Access</b> - Direct filesystem access rights (<i>read-write</i>,
+    <i>read-only</i>, <i>no access</i>).</li>
+  <li><b>Repository</b> - Display which OKS repository the file is
+located on or <i>none</i>, if the file is not stored on
+OKS server. For a repository file the access permissions are shown: <font
+ color="#006600">RW - read-write</font> access, <font color="#990000">R
+- read-only</font> access (i.e. commit on
+OKS server is not allowed).<br>
+  </li>
+  <li> <b>Status</b> - Updated, active, locked or none</li>
+</ul>
+The press of table's column header button sorts contents of table
+by
+this column. For example, sort by "Status" column to get list of all
+modified files.<br>
+<h3>Search Panel</h3>
+The bottom panel of Data Files table allows to display a sub-set of
+loaded data files. If there are no any symbols in the "<i>Matching
+names of files:</i>" text
+filed, then all files are shown. Otherwise only those files, which
+match the search mask are shown.<br>
+<br>
+If the "<i>Reqular expression</i>"
+toggle button is selected, to apply the mask press appeared <img
+ style="width: 24px; height: 24px;" alt="Search Button" src="search.gif">
+button. Otherwise the
+modified selection is applied automatically, when the mask is modified.<br>
+<h2><a name="ClassesTable"></a>OKS Classes Table</h2>
+The OKS Classes Table shows loaded OKS classes and allows some
+operations
+with them. The user is able to browse instances of a class, create new
+instance of a class, create or load a query for a class. To display a
+list
+of the available actions with OKS data files, it is necessary press
+right
+mouse button, when mouse pointer will be over the classes' table, as it
+shown on the figure below:<br>
+<div align="center"><img style="width: 627px; height: 254px;"
+ alt="Classes" src="classes.gif" hspace="5" vspace="5"></div>
+<p>The popup menu allows the following actions:
+</p>
+<ul>
+  <li><b>[Show]</b> - Display the <a href="ClassWindow.html">Class
+Window</a> that will show the table of instances, created for selected
+class (if the class is <i>abstract</i>, the item will be disabled).</li>
+  <li><b>[New Object]</b> - Create new instance of selected class. The
+item is disabled if the class is <i>abstract</i>, or when there is no
+active data file.</li>
+  <li><b>[Query]</b> - Create <a href="QueryWindow.html">Query Window</a>
+for selected class.</li>
+  <li><b>[Load Query]</b> - Create <a href="QueryWindow.html">Query
+Window</a>
+for selected class and loads already existing query.</li>
+</ul>
+The double-click on data files table will bring <a
+ href="ClassWindow.html">Class
+Window</a>.
+<p>The table shows the following information about class:
+</p>
+<ul>
+  <li> <b>Name</b></li>
+  <li> <b>Number of instances</b></li>
+  <li> <b>Is abstract</b> (yes, no)</li>
+</ul>
+The press of table's column header button will sort contents of table
+by
+this column.<br>
+<h3>Search Panel</h3>
+The bottom panel of Classes table allows to display a sub-set of
+classes. If there are no any symbols in the "<i>Matching names of
+classes:</i>" text
+filed, then all classes are shown. Otherwise only those classes, which
+match the search mask are shown.<br>
+<br>
+If the "<i>Reqular expression</i>"
+toggle button is selected, to apply the mask press appeared <img
+ style="width: 24px; height: 24px;" alt="Search Button" src="search.gif">
+button. Otherwise the
+modified selection is applied automatically, when the mask is modified.<br>
+<br>
+<hr width="100%">
+<a href="OksDataEditor.html">Home</a> - <a href="MessageLogWindow.html">Next</a>
+- <a href="Index.html#Index">Index</a>
+<br>
+<hr width="100%">
+<address><font size="-1">Modified 09-JUN-2009</font></address>
+<address>
+<font size="-1">Author <a
+ href="http://consult.cern.ch/xwho/people/432778">Igor Soloviev</a></font></address>
+</body>
+</html>

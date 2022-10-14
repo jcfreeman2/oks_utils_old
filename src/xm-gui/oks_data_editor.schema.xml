@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ASCII"?>
+
+<!-- oks-schema version 2.0 -->
+
+
+<!DOCTYPE oks-schema [
+  <!ELEMENT oks-schema (info, (include)?, (comments)?, (class)+)>
+  <!ELEMENT info EMPTY>
+  <!ATTLIST info
+      name CDATA #REQUIRED
+      type CDATA #REQUIRED
+      num-of-includes CDATA #REQUIRED
+      num-of-items CDATA #REQUIRED
+      oks-format CDATA #FIXED "schema"
+      oks-version CDATA #REQUIRED
+      created-by CDATA #REQUIRED
+      created-on CDATA #REQUIRED
+      creation-time CDATA #REQUIRED
+      last-modified-by CDATA #REQUIRED
+      last-modified-on CDATA #REQUIRED
+      last-modification-time CDATA #REQUIRED
+  >
+  <!ELEMENT include (file)+>
+  <!ELEMENT file EMPTY>
+  <!ATTLIST file
+      path CDATA #REQUIRED
+  >
+  <!ELEMENT comments (comment)+>
+  <!ELEMENT comment EMPTY>
+  <!ATTLIST comment
+      creation-time CDATA #REQUIRED
+      created-by CDATA #REQUIRED
+      created-on CDATA #REQUIRED
+      author CDATA #REQUIRED
+      text CDATA #REQUIRED
+  >
+  <!ELEMENT class (superclass | attribute | relationship | method)*>
+  <!ATTLIST class
+      name CDATA #REQUIRED
+      description CDATA ""
+      is-abstract (yes|no) "no"
+  >
+  <!ELEMENT superclass EMPTY>
+  <!ATTLIST superclass name CDATA #REQUIRED>
+  <!ELEMENT attribute EMPTY>
+  <!ATTLIST attribute
+      name CDATA #REQUIRED
+      description CDATA ""
+      type (bool|s8|u8|s16|u16|s32|u32|s64|u64|float|double|date|time|string|uid|enum|class) #REQUIRED
+      range CDATA ""
+      format (dec|hex|oct) "dec"
+      is-multi-value (yes|no) "no"
+      multi-value-implementation (list|vector) "list"
+      init-value CDATA ""
+      is-not-null (yes|no) "no"
+  >
+  <!ELEMENT relationship EMPTY>
+  <!ATTLIST relationship
+      name CDATA #REQUIRED
+      description CDATA ""
+      class-type CDATA #REQUIRED
+      low-cc (zero|one) #REQUIRED
+      high-cc (one|many) #REQUIRED
+      is-composite (yes|no) #REQUIRED
+      is-exclusive (yes|no) #REQUIRED
+      is-dependent (yes|no) #REQUIRED
+      multi-value-implementation (list|vector) "list"
+  >
+  <!ELEMENT method (method-implementation*)>
+  <!ATTLIST method
+      name CDATA #REQUIRED
+      description CDATA ""
+  >
+  <!ELEMENT method-implementation EMPTY>
+  <!ATTLIST method-implementation
+      language CDATA #REQUIRED
+      prototype CDATA #REQUIRED
+      body CDATA ""
+  >
+]>
+
+<oks-schema>
+
+<info name="" type="" num-of-includes="0" num-of-items="8" oks-format="schema" oks-version="HEAD built &quot;Sep 16 2009&quot;" created-by="isolov" created-on="sunatdaq02" creation-time="20020409T122051" last-modified-by="isolov" last-modified-on="pcatd79.cern.ch" last-modification-time="20090917T152819"/>
+
+ <class name="Class">
+  <attribute name="Name" description="Name of described OKS class." type="string" is-not-null="yes"/>
+  <attribute name="Generic Pixmap File" description="Describes generic pixmap file" type="string" is-not-null="yes"/>
+  <attribute name="Used Pixmap File" description="Path to &quot;used&quot; pixmap file" type="string"/>
+  <attribute name="Icon Bitmap File" description="Path to icon bitmap file" type="string" is-not-null="yes"/>
+  <attribute name="Icon Mask Bitmap File" description="Path to icon mask file (must correcpond to &quot;Icon Pixmap&quot;)" type="string"/>
+  <attribute name="Show All Attributes" description="If true shows all attributes except given in &quot;Hide Attributes&quot;" type="bool" init-value="true"/>
+  <attribute name="Attributes" description="List attributes to be shown if &quot;Show All Attributes&quot; is false; otherwise lists attributes which are hidden" type="string" is-multi-value="yes"/>
+  <attribute name="Show All Relationships" type="bool" init-value="true"/>
+  <attribute name="Relationships" description="List attributes to be shown if &quot;Show All Relationships&quot; is false; otherwise lists relationships which are hidden" type="string" is-multi-value="yes"/>
+  <attribute name="Icon Title" description="Describes extended icon&apos;s title. The value of @foo@ is substituted by attribute `foo&apos; value if it is defined." type="string"/>
+  <attribute name="Remove From Used" description="Ignore this releationships when build &quot;used tree&quot;" type="string" is-multi-value="yes"/>
+  <relationship name="Dual Relationships" class-type="Dual Relationship" low-cc="zero" high-cc="many" is-composite="yes" is-exclusive="no" is-dependent="yes"/>
+  <relationship name="Initialize Attributes" description="Defines list of attributes which have to be initialized by environment variables instead of default value provided by the OKS schema" class-type="Init Attribute Value" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+ </class>
+
+ <class name="Dual Relationship">
+  <attribute name="Direct" type="string"/>
+  <attribute name="Reverse" type="string"/>
+ </class>
+
+ <class name="Init Attribute Value" description="Defines list of environment variables to initialize attribute value for newly created object">
+  <attribute name="Attribute Name" description="Defines attribute name which has to be initialized by environment variable" type="string" init-value="unknown" is-not-null="yes"/>
+  <attribute name="Environment Variables" type="string" is-multi-value="yes" is-not-null="yes"/>
+ </class>
+
+ <class name="Main">
+  <attribute name="Used objects" type="enum" range="Show-as-used,Show-as-generic" init-value="Show-as-used"/>
+  <attribute name="Root relationship" type="string" init-value="Nested" is-not-null="yes"/>
+  <relationship name="Root class" class-type="Class" low-cc="one" high-cc="one" is-composite="no" is-exclusive="no" is-dependent="no"/>
+ </class>
+
+ <class name="Window">
+  <attribute name="Title" type="string" init-value="Unknown" is-not-null="yes"/>
+  <relationship name="Items" class-type="Window Item" low-cc="zero" high-cc="many" is-composite="no" is-exclusive="no" is-dependent="no"/>
+ </class>
+
+ <class name="Window Class">
+  <superclass name="Window Item"/>
+  <attribute name="Top Level Name" description="Should be class name but can be written slightly different and contain &lt;CR&gt; symbol in form \n" type="string" init-value="Unknown\nClass" is-not-null="yes"/>
+  <attribute name="Show on top level" type="enum" range="with-used-menu,without-used-menu,do-not-show" init-value="with-used-menu"/>
+  <attribute name="Use to create top-level objects" type="bool" init-value="true" is-not-null="yes"/>
+  <attribute name="Show in new" type="bool" init-value="true" is-not-null="yes"/>
+  <attribute name="Shown with children" type="enum" range="root,any,none" init-value="none" is-not-null="yes"/>
+  <attribute name="Root relationship name" type="string"/>
+  <relationship name="Graphical Class" class-type="Class" low-cc="one" high-cc="one" is-composite="no" is-exclusive="no" is-dependent="no"/>
+ </class>
+
+ <class name="Window Item" description="Abstract class describing either use of graphical class or separator" is-abstract="yes">
+ </class>
+
+ <class name="Window Separator">
+  <superclass name="Window Item"/>
+  <attribute name="Break At" type="enum" range="Top-level,New-object,Both" init-value="Top-level" is-not-null="yes"/>
+ </class>
+
+</oks-schema>

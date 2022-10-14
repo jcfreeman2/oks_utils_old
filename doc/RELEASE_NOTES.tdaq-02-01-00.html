@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:v="urn:schemas-microsoft-com:vml"
+ xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Untitled 1</title>
+</head>
+<body>
+<span style="font-weight: bold;">OKS Server</span>
+<ul>
+  <li><span id="hidsubpartcontentdiscussion">In case of the probe file
+usage (e.g. test any commit against ATLAS combined partition) the OKS
+server does not validate the same file twice</span> (see <a
+ href="https://savannah.cern.ch/patch/?3453">tdaq-02-00-03
+patch 3453</a>).</li>
+  <li><span id="hidsubpartcontentdiscussion"> The OKS server can be
+used on any platform of TDAQ release; before only one platform was
+supported, i.e. the OKS server has been configured for SLC4 opt </span><span
+ id="hidsubpartcontentdiscussion"></span> (see tdaq-02-00-03 patch
+    <a href="https://savannah.cern.ch/patch/?3453">3453</a>).</li>
+  <li>The OKS server utilities support operations with directories (see
+    <a href="https://savannah.cern.ch/patch/?3497">tdaq-02-00-03 patch
+3497</a>).</li>
+  <li>Avoid OKS commit infinite loop in case of file system errors
+like "<span style="font-style: italic;">cannot open file</span>"&nbsp;
+(see <a href="https://savannah.cern.ch/patch/?3619">tdaq-02-00-03
+patch 3619</a>).</li>
+  <li><span id="hidsubpartcontentdiscussion">Restore current working
+directory after any OKS server operation (see </span><a
+ href="https://savannah.cern.ch/patch/?3656"><span
+ id="hidsubpartcontentdiscussion">tdaq-02-00-03 patch </span><span
+ id="hidsubpartcontentdiscussion">3656</span></a><span
+ id="hidsubpartcontentdiscussion">).</span></li>
+  <li>Fix problem with removal of files included by other repository
+files (see <a href="https://savannah.cern.ch/bugs/?67304">Savannah bug
+67304</a>)<br>
+    <span class="change"> </span></li>
+  <li><span class="change">Add a possibility of PAM auth to OKS
+commit (reserved for future multi-session RDB server).</span></li>
+  <li><span class="change">Duplicated classes are not allowed.</span></li>
+</ul>
+<h4>Relational OKS</h4>
+<ul>
+  <li><span id="hidsubpartcontentdiscussion">When look for appropriate
+schema version, test compatibility of schema without read of data to
+avoid </span><span id="hidsubpartcontentdiscussion"></span><span
+ id="hidsubpartcontentdiscussion">oks2coral </span><span
+ id="hidsubpartcontentdiscussion">slowness</span><span
+ id="hidsubpartcontentdiscussion"> </span><span
+ id="hidsubpartcontentdiscussion">(</span>see <a
+ href="https://savannah.cern.ch/patch/?3497">tdaq-02-00-03 patch <span
+ id="hidsubpartcontentdiscussion">3497</span></a><span
+ id="hidsubpartcontentdiscussion">).</span></li>
+  <li><span id="hidsubpartcontentdiscussion">The oks_ls_data utility
+takes into account usage of archived
+configurations, when 'since' and 'till' parameters are used </span><span
+ id="hidsubpartcontentdiscussion">(</span>see <a
+ href="https://savannah.cern.ch/patch/?3833">tdaq-02-00-03 patch <span
+ id="hidsubpartcontentdiscussion">3833</span></a><span
+ id="hidsubpartcontentdiscussion">).</span></li>
+</ul>
+<h4>OKS Data Editor</h4>
+<ul>
+  <li><span id="hidsubpartcontentdiscussion">Fix bug in query
+constructor for multi-value attribute comparators (</span>see
+    <a href="https://savannah.cern.ch/patch/?3497">tdaq-02-00-03 patch <span
+ id="hidsubpartcontentdiscussion">3497</span></a><span
+ id="hidsubpartcontentdiscussion">).</span></li>
+  <li><span id="hidsubpartcontentdiscussion">Fix problem causing editor
+crashes in data file dialog (</span>see <a
+ href="https://savannah.cern.ch/patch/?4031">tdaq-02-00-03 patch <span
+ id="hidsubpartcontentdiscussion"></span></a><span
+ id="hidsubpartcontentdiscussion"><a
+ href="https://savannah.cern.ch/patch/?4031">4031</a> </span><span
+ id="hidsubpartcontentdiscussion">and <a
+ href="https://savannah.cern.ch/bugs/?67505">Savannah bug </a></span><a
+ href="https://savannah.cern.ch/bugs/?67505"><span
+ id="hidsubpartcontentdiscussion">67505</span></a><span
+ id="hidsubpartcontentdiscussion">).</span></li>
+  <li><span id="hidsubpartcontentdiscussion">Use Motif ComboBox widget
+instead of options menu in case of potentially big number of items
+(e.g. list of classes).<br>
+    </span></li>
+  <li><span id="hidsubpartcontentdiscussion">Allow query in
+search/replace dialog.</span></li>
+  <li><span class="change">Fixed tips for attribute and relationship
+description. </span></li>
+  <li><span id="hidsubpartcontentdiscussion">Online help improvements.<br>
+    </span></li>
+</ul>
+<h4>OKS Schema Editor</h4>
+<ul>
+  <li><span id="hidsubpartcontentdiscussion">Avoid editor crash if
+command line parameter is not a file </span>(see <a
+ href="https://savannah.cern.ch/patch/?3798">tdaq-02-00-03 patch
+3798</a>).</li>
+</ul>
+<h4><span style="font-weight: bold;"></span></h4>
+</body>
+</html>
